@@ -1,0 +1,99 @@
+
+# Notes:
+#   - Minimal appveyor.yml file is an empty file. All sections are optional.
+#   - Indent each level of configuration with 2 spaces. Do not use tabs!
+#   - All section names are case-sensitive.
+#   - Section names should be unique on each level.
+
+#---------------------------------#
+#      general configuration      #
+#---------------------------------#
+
+# version format
+version: 1.0.{build}
+
+# you can use {branch} name in version format too
+# version: 1.0.{build}-{branch}
+
+# branches to build
+branches:
+  # blacklist
+  except:
+    - develop
+    - gh-pages
+
+# Do not build on tags (GitHub and BitBucket)
+skip_tags: true
+
+# Start builds on tags only (GitHub and BitBucket)
+skip_non_tags: false
+
+# Do not build feature branch with open Pull Requests
+skip_branch_with_pr: true
+
+# Maximum number of concurrent jobs for the project
+max_jobs: 1
+
+
+#---------------------------------#
+#    environment configuration    #
+#---------------------------------#
+
+# Build worker image (VM template)
+image: Visual Studio 2017
+
+# environment variables
+environment:
+  push_key:
+    secure: x1/AweRez7monYnt2ykXN4BxxuUnGbh2p6cl1LT4AkWOG0VOOUnwCY4nV8TtS7IFxT1g/RBwS88ewSE3AGQgGBGFPtSF2cdrg7Nux3Oxy1ZWusOqfV1A8t32ftn9JQS3Yks3IIjEhyYAnJIGdW2PizUD3R9JcZJKill6y8kqK7lNVfezgc8nekpMTymmSRmxfffnfeP4xBw2MaJoUCeQ0ZeVeP77WlztDRqPHQui0fNA+ptYCjfs8tim8X2LtXNo52OM4/0Y/2RrdHK3brdfb6ldqh4EYP0J37sJK+3I+ovenbuBJui0/F0X2IZOZYFJ+4CTRr0tyAv1b5DYWlGPEKlwK3m9NBL3trmHGXOZOjRSgYtyjIt7Bdbbk2+PZaZMb3Wdw+Ezf6soNrWGt0QcTRYBfAGczwrbDyslbW8AEN5tAtNvzUSzyPXIn6ZzJadewv5wLdvrNrk/sKV144Za4zkNDTspIAks2/KTHFOmKHn4tNWC0edxYN+DfFXBFMwgwtpV+/n+nNqRSN7dAZSufUuxKBhujNelJDcrNTKS6M/TBZeV0OrREq9eYmkwFWqjOMF1eZXIwZ4hpAhTTVLPJYV4bwjXqf3ya1OgS8u5jNoirh8bAoGJawy1T1823e2cNciqa2kisa4ksvpwXSeKnBW0KCfdJ5+XUNs9U3UqgTKv2c1qpnn+xxToLrgAwPdLGHnbxHyKYG5EnfUONGBG++LKMbP+VGfeaWkCbm6hAQ8NIo+CpON6bJ+3bNJSAF4rUYs2BvZZQ13w0+DRKyBd+hnmipmPrQMk4XcZhpuBgMj51+2og+mCjMtwF3Bfy/UdOLiX24f0wBFm1TUHuj2tPgmfAPXyBnAcXZduw8KDItXqUyNmAMeRPb4/UZcCIRj8EeCq2U1BWFbVvPp/93tnYsv1TT0QB5WVa3tGE6G0+yW4z4ZTBvdlhpZPJCDMrs8H3QLpHvI3lzaPCrnQpFC8QkM6rRA8Ch1Ix1DaKPgcTqhRKmArGAH87981iKtuKCbgWnfZb6+ttkErdmhQOr7tTAXMwT6kpCmjTg4GAJyBOev4dOyVB6MZtDN32Uz2F/0qw4gB3L9hqlYLJNd6K7Zs9XclfBUWoOdANT6Ik4jQDHUvrtOZBP74VBrqJZt70avHNrFEvIgAHfOCAoNJOKuOSy76/bZcD6DlNx27OP2ooGPO2mebKtasuQVBQlUZaP6Hwou+WICpYRPTVj6sKYxsp/uYJkjbGXCueo6h1HcF2wdqoZdFNnHE9uSdnY979nS907zOBcA+6fR05Iz1VhKC8VL1B/CgGSETkETF7gxnposXrUzutPhx6iTvVlnM7imAKWpXxDHMUW4FlDLc6YPoH70xg+Nmdrhlr1L4hVad2FEmPwQ2VVgk4EQ+hgEicxmSnG0kVjo3HiqMUrnYZrK2BCJKf0GGe5X1dxNizlVtZzuK/SRSkMMN/q1WMsoGPJF2/W9C+JVx4Cz5lbsFFdMcp0d/N242EBXVF4yG1kyvt1/609ldOexaJbofXSKfdzsQHdPfbQ8RIkzUmbY8mt6hCCF8/GbXBcSyoF5giIyePAZ0+pf4KEJ79aR9dp/C6Ic8GR2dNWGxYdaThV4Nxdaw0mlpIy53Xjzo9Gco09XyWXYVRNGisBxlFvnk/6ZAw19cCGDkg0WHGwjrqGHMCrdGCf5y3x8idCf4l8Vj1FCfdBgQxc0LAlifVjY9/lRstr2qAzPjOlikXp9OvlrjzNMt/tZjdJw7dR+cuvQWT5DuhEkl90lzrQSQgYb+KOOosU5NvtSCVbXZjnKuy95Df1bFpNnCAprhq8YJuXBu6co3nGkRxThsHE3Lg5XoBmLmPPB2Uci0oA2sk+9vUdPH7TXRek9eHw81kCkn71QRE6/39dBnk+Ljg5Q6X1ZmJmJpiap1AjKC6J6xw4OghWPMkjqaF2pssg6+04mFtUb0y7KcxYugBMhFtWtRpZlKrnMYGQATlAcz0kb4slElbt9FBxDIUrLXvGTXiCQ0G3mqw+QS/6SuHn13zcO7cE4OuygL85fuMDYFQhTvmy4fPF+sG81BkuH9cfdWHsGxhSqbqBQpIy7VDLfcMlHt5nlbUpuEXyLa6VPRlPf+2uXTlZ2nl/DGvFd1UsAVEnc3oPQJEk+3yN7DANMMZIuct9EzWXcg67TKKCQu+vUnuFZA9SHxco0pqNt3oUUE/jJq12fxAH2xq2eaYWlKxQGYUgWtF6sGS0KAu4M+NXFTZJzJUpkOopZDVVHy57lj8lnwhLsEgYSAGmt6LFk14eCesMb865xjJCAIQzdZkdJ21V5GZIhT8xUeRODolbtPAAq4LtDHpubDhIjIBZMPY5MoCCy9PrUCZuMFGdgm1TPItoh2JWvF19mXhD9Z6qsqE971FMW+Qz1Vn6Xqzo1zUsdXg1+EAF8aCJfadnCxw1lZsGYI0y51mL3osZ7abLo8IyUisOEQJ0sUHSMRjKVQ2us8iESM1ZCUI8CGAJH60fz9DHzxDSb4gL9UIM2CFZABzP9bef1BZEij6GThlAEw66cVyJL0sMgooRZW5EWZKhL8UYHDzaY838wPPrkAXdmPFg5jnQP0wqwDwwIEaBnUQ0oXBQ2f8C7el67j9/sYwhX8ajIPDpAFy1ITjrQgt32qkq02uHLSLOvljkKUSSIBGQAtU4Gi9TWLW5QwSiuD0TR/vIAdgHeOCWosHxRzBD9DdgCdUYSnEcRMQ7+FvcHl7VvIz4l0bBPSGy3gKbqM7nN/I3pZaulauvsi0+yqGaE2QnpE1bWZ54aDjyNLvQJiOyBAAWNGHjK5gwyYxbOgAg0pzIAAxqQeYOpGcDLjknU/43fm69LzPng6GE4qRtwENDzRWk1w35Q6EDFhOe0qFWX2Q6ELqUxTo7QzPucbkldY52hmKROCOM983wxq3y2OPO+EzyC5HwpwF2IfSqUpX2TrrlgI5u9Gw8KGwtjFn7rHRPyB+owxFRdWm8wTBwruoHS3AZHpU5V10Bfmj79QmL3Xt3cmCy5OjhH/NFBcUcXvIbGE2eBv4Ct/FzvsGTpAvE28A0PESa8FsxLqegxhMLWmvbtnaKeGY4Ak3ssF4fj56tzUwCWE0wkAucDcO5mfj9P6VMiYpuiMJnpa6o5O2d4dNI2oY36wV9G45WUeCr8hycgYEeOwlnYPYmyOGJBQOTDROwLeshY5nqHu1gffM6N4+MTWTBcjRrXAVsOY9DUXC8E+L1R595TQ1ZgllwaXGVOrMAGPdYFmITY3TQOELvL21EGUFKfBGHFUCzkOgdbEy0C8zIUjJMSZYUNI3Sef80F5A/sFHIP1LiswO0k1CY048Yzt/HLYsYCsn707A8gMsyu7d3Pq0ahCedBH0A41klT7rfrlgy2Tg8fCRqqZsNzEIVnlhXKfvZ1Y1UhRtdUd2OTJ8B6Mo1guDrMTzYcIomMPzpB+u0yMqYBCk4y9aqAFHp+M+c8yzSOeIdlLu9tGx1IhEP/YgVyb6yMJ0DW1hSm+4k6wQTDQPI9oSuPArKPf1oXP89dC0uYFhbaUdoOYELD3eznW1v9H2drcJffzK8GfAUEEwFNKOJJAIft+fh/3uLHcPJyRQX7DmCCArQV5t57qLs80VcW1ZZeEDWa0jtvAXE0Zx92bBdNE8FVHh8sqNalpJFkF8WZLXyJnuKewGcMVIDff97L310UscF2kO/XjMmtOKV3kt9FObYqxVBNZ41lTHqTJOj6NvM0krXOg0HRDoNn6VGqhj0o+04Qj9WNiBJxPkH8+NuqhFspTT3Fmlub18SN8oT9N8yod+ndYey/cj824zySNWv0BdIEUUTG957Xs4zNngDJftEa71N5g95vxgZv9GmmKShk4wZu9yGjhV6mhCmV7veoyXxBjEjcL3OcfSZEbkdgEG8d4dLi/eNUpNpPSaKufWe3kF7kNYpEzrVLgSvpuk5LaVCfNo9PXu9Dvl+uBerlA8CdM8s1IQlsvfxgpi7kvTgt748V2EfoVl1Oh6SbcRgPESjVg6UORkrzEvZQjWZyD0/QsYHXSIMTERVF/jRq9A4+h25KxioLhAAyTrD9b2idmZxAS1vSuHQevGxYuLqaC9XsVc2+dgEioAGdI8IJR0J7jCefRQmeEbArZoE5mwsCyR58INKtgoTXYKHY+XlhUbR7FVoun1szYA+eb5W8TYla2t/RjA0xtfbY+5/Em/SNI4zy1ACOh7gUpZIObAfRIhApCe8TIhH6aHyI2O6gvid5AD8in76uUlZxxmZpb5YGtfXKp37EEjTyk56K9QbhTNuGmY/k33DcoRPEXtG8myY+GjYKKUNzaRcrO/0QT3Bk=
+
+# scripts that are called at very beginning, before repo cloning
+init:
+  - git config --global core.autocrlf false
+
+
+#---------------------------------#
+#       build configuration       #
+#---------------------------------#
+
+# to run your custom scripts instead of automatic MSBuild
+build_script: msbuild entrypoint.msbuild /t:build /v:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+
+
+#---------------------------------#
+#       tests configuration       #
+#---------------------------------#
+
+# to run your custom scripts instead of automatic tests
+# test_script:  msbuild entrypoint.msbuild /t:test /v:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+
+
+#---------------------------------#
+#     deployment configuration    #
+#---------------------------------#
+
+# scripts to run before deployment
+before_deploy:
+  - ps: $fileContent = "-----BEGIN RSA PRIVATE KEY-----`n"
+  - ps: $fileContent += $env:push_key.Replace(' ', "`n")
+  - ps: $fileContent += "`n-----END RSA PRIVATE KEY-----`n"
+  - ps: Set-Content c:\users\appveyor\.ssh\id_rsa $fileContent
+  - ps: $message = Get-Content push_message.txt
+  - ps: Set-AppveyorBuildVariable -Name PushMessage -Value $message
+
+# to run your custom scripts instead of provider deployments
+deploy_script: msbuild entrypoint.msbuild /t:deploy /v:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+
+
+#---------------------------------#
+#      artifacts configuration    #
+#---------------------------------#
+
+artifacts:
+
+  # pushing entire folder as a zip archive
+  - path: 'build\logs'
+
+  # pushing all *.zip files in build directory recursively
+  - path: 'build\deploy\*.zip'
+

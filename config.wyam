@@ -1,0 +1,17 @@
+// Preprocessor directives
+#recipe Docs
+#theme Samson
+
+// Hosting information
+Settings[Keys.Host] = "calvinverse.github.io";
+Settings[Keys.LinkRoot] = "/docs";
+
+// Site information
+Settings[DocsKeys.Title] = "Calvinverse";
+
+// Edit settings
+Settings[DocsKeys.BaseEditUrl] = "https://github.com/calvinverse/calvinverse.docs/tree/master/src/";
+
+// API settings
+// Settings[DocsKeys.AutoLinkTypes] = true;
+// Settings[DocsKeys.SourceFiles] = "../src/nbuildkit/tasks/nBuildKit.MsBuild*/**/*.cs";
