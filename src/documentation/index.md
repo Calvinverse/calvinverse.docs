@@ -17,9 +17,34 @@ which consist of many different services.
 The code in the repositories will either create a [Hyper-V](https://en.wikipedia.org/wiki/Hyper-V) virtual machine image or
 a [Docker](https://www.docker.com/) container. If however a different virtualization platform is desired changes can be made to the [Packer](https://packer.io) configurations relatively easy to change the type of images that are generated.
 
-- Resources
-- What does the base infrastructure look like
-    - Consul
-    - Nomad
-    - Vault
-    - Base images
+
+## Available resources
+
+The Calvinverse organisation contains a number of repositories with
+[resources](../resources) that can be used to create a build system. These
+resources fall into one of the following groups:
+
+* [Base resources](../resources/category-base.html) - Resources on which other resources are based.
+  For instance there are resources that define a VM with just an operating system
+  installed and prepared. These base VM images will then be used by other resources
+  as their base, thereby reducing the build times for these more advanced resources.
+* [Build resources](../resources/category-build.html) - Resources which define parts of the build
+  infrastructure, e.g. the build controller or build executors.
+* [Supporting resources](../resources/category-support.html) - Resources which define parts of the
+  infrastructure which support the work of the build resources, e.g. web servers.
+
+In general at least some of the base and build resources are needed to build a functional
+build system. The other resources may be required if a larger build system needs to be
+created.
+
+## Setup and configuration
+
+* [Getting started](getting-started.html)
+* [How to build](how-to-build.html)
+
+## Examples
+
+
+## Contribution
+
+* [About](about.html)
