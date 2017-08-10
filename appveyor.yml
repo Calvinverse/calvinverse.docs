@@ -80,7 +80,7 @@ before_deploy:
   - ps: Set-Content c:\users\appveyor\.ssh\id_rsa $fileContent
 
 # to run your custom scripts instead of provider deployments
-deploy_script: msbuild entrypoint.msbuild /t:deploy /v:diag /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+deploy_script: msbuild entrypoint.msbuild /t:deploy /v:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 
 
 #---------------------------------#
