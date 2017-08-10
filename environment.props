@@ -22,8 +22,8 @@
         <JenkinsGitBranchExpectedHeader>origin/</JenkinsGitBranchExpectedHeader>
         <TfsGitBranchExpectedHeader>LG:refs/heads/</TfsGitBranchExpectedHeader>
 
-        <BranchGitExpected>UNDEFINED</BranchGitExpected>
-        <BranchGitExpected Condition=" '$(IsOnAppVeyorBuildServer)' == 'True' " >$(APPVEYOR_REPO_BRANCH)</BranchGitExpected>
+        <GitBranchExpected>UNDEFINED</GitBranchExpected>
+        <GitBranchExpected Condition=" '$(IsOnAppVeyorBuildServer)' == 'True' " >$(APPVEYOR_REPO_BRANCH)</GitBranchExpected>
 
         <GitRevNoExpected>UNDEFINED</GitRevNoExpected>
         <GitRevNoExpected Condition=" '$(IsOnAppVeyorBuildServer)' == 'True' ">$(APPVEYOR_REPO_COMMIT)</GitRevNoExpected>
