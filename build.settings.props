@@ -729,6 +729,7 @@
             <Properties>
             </Properties>
         </BuildStepsToExecute>
+        <!--
         <BuildStepsToExecute
             Condition=" '$(IsGitFlow)' == 'true' AND ('$(IsReleaseBranch)' == 'true' OR '$(IsHotfixBranch)' == 'true') "
             Include="$(BuildStepsPrepareTagVcs)">
@@ -749,6 +750,7 @@
             <Properties>
             </Properties>
         </BuildStepsToExecute>
+        -->
 
         <BuildStepsToExecute Include="$(BuildStepsPrepareReleaseNotes)">
             <ExecuteAfter></ExecuteAfter>
