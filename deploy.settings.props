@@ -189,7 +189,7 @@
         <PushToGitBranchSpecs
             Condition=" '$(DirBuildDeploy)' != '' "
             Include="$(DirBuildDeploy)\${ProductName}-${VersionSemantic}.zip">
-             <Repository>git@github.com:calvinverse/calvinverse.github.io.git</Repository>
+             <Repository>git@github.com:Calvinverse/calvinverse.github.io.git</Repository>
              <Branch>master</Branch>
              <ExtractZipFiles>true</ExtractZipFiles>
              <CommitMessage>Updating the documentation for ${VersionSemantic}</CommitMessage>
@@ -605,7 +605,9 @@
             </Properties>
         </DeployStepsToExecute>
         -->
-        <DeployStepsToExecute Include="$(DeployStepsPushToGitBranch)">
+        <DeployStepsToExecute
+            Condition=" '$(IsMasterBranch)' == 'true' "
+            Include="$(DeployStepsPushToGitBranch)">
             <ExecuteAfter></ExecuteAfter>
             <ExecuteBefore></ExecuteBefore>
             <Groups>
