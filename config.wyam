@@ -4,7 +4,7 @@
 
 // Hosting information
 Settings[Keys.Host] = "calvinverse.github.io";
-Settings[Keys.LinkRoot] = "/docs";
+Settings[Keys.LinkRoot] = "";
 
 // Site information
 Settings[DocsKeys.Title] = "Calvinverse";
