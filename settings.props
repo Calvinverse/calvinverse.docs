@@ -295,7 +295,7 @@
         <!-- <DirBuildDeploy>$(DirBuild)\deploy</DirBuildDeploy> -->
 
         <!-- The directory that will contain all the documentation files which are generated during the build process -->
-        <!-- <DirBuildDoc>$(DirBuildDeploy)\doc</DirBuildDoc> -->
+        <!-- <DirBuildDoc>$(DirBuild)\doc</DirBuildDoc> -->
 
         <!-- The directory that will contain all the generated build logs during the build process -->
         <!-- <DirBuildLogs>$(DirBuild)\logs</DirBuildLogs> -->
@@ -308,6 +308,9 @@
 
         <!-- The directory that will contain all the test files generated during the test process -->
         <!-- <DirBuildTests>$(DirBuild)\tests</DirBuildTests> -->
+
+        <!-- The directory that contains the documentation files -->
+        <DirDoc>$(DirWorkspace)\src</DirDoc>
 
         <!-- The directory that contains all the NuGet packages for the project -->
         <!-- <DirPackages>$(DirWorkspace)\packages</DirPackages> -->

@@ -3,7 +3,6 @@
     <name>${ProductName}-${VersionSemantic}</name>
     <files>
         <file
-            exclude="${DirBuildDoc}\*.zipspec"
             src="${DirBuildDoc}\**\*.*"
             target="" />
     </files>
