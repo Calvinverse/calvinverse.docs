@@ -5,5 +5,5 @@ To create one of the resources
 * The [NuGet command line executable]() should be on the PATH
 * The [Git]() executable should be on the PATH
 
-
+ ... More details on how to build things go here ...
 
