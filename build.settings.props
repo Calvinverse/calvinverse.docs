@@ -1048,6 +1048,7 @@
         </BuildStepsToExecute>
         -->
 
+        <!--
         <BuildStepsToExecute Include="$(BuildStepsBuildWyam)">
             <ExecuteAfter></ExecuteAfter>
             <ExecuteBefore></ExecuteBefore>
@@ -1065,6 +1066,15 @@
                 Configuration=$(ProductionConfiguration);
                 Platform=$(Platform)
             </Properties>
+        </BuildStepsToExecute>
+        -->
+
+        <BuildStepsToExecute Include="$(DirWorkspace)\build.wyam.msbuild">
+            <Properties>
+            </Properties>
+            <Groups>
+                Compile;
+            </Groups>
         </BuildStepsToExecute>
 
         <BuildStepsToExecute Include="$(BuildStepsPackNuGet)">
@@ -1155,6 +1165,11 @@
 
     <!-- Overrides for the tools paths -->
     <PropertyGroup>
+        <!--
+            The full path and version for the Wyam command line application
+        -->
+        <ToolsExternalWyamPath Condition=" '$(ToolsExternalWyamPath)' == '' ">UNDEFINED</ToolsExternalWyamPath>
+        <ToolsExternalWyamVersion Condition=" '$(ToolsExternalWyamVersion)' == '' ">2.2.5</ToolsExternalWyamVersion>
     </PropertyGroup>
 
 
