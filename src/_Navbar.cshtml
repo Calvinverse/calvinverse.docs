@@ -1,0 +1,55 @@
+<ul>
+@{
+    foreach(var doc in Context.Documents)
+    {
+        if (doc != null)
+        {
+        <!-- @doc.String(DocsKeys.Title) - @doc.Get(DocsKeys.ShowInNavbar, false) - @doc.Get("Order")?.GetType() -->
+        }
+    }
+
+    var pages = Documents[Docs.Pages]
+        .Where(x => x.Get<bool>(DocsKeys.ShowInNavbar, false))
+        .Select(
+            x =>
+            {
+                var link = Context.GetLink(x);
+                var title = x.String(DocsKeys.Title);
+
+                int order = 1000;
+                if (string.IsNullOrEmpty(title) && string.Equals(link, "/", StringComparison.OrdinalIgnoreCase))
+                {
+                    title = "Home";
+                    order = -1;
+                }
+
+                var orderAsObj = x.Get("Order") as string;
+                if (orderAsObj != null)
+                {
+                    if (!int.TryParse(orderAsObj, out order))
+                    {
+                        title = string.Empty;
+                    }
+                }
+
+                return Tuple.Create(title, link, x.Id, order);
+            })
+        .Where(x => !string.IsNullOrEmpty(x.Item1))
+        .OrderBy(x => x.Item4);
+    foreach(var blogPage in pages)
+    {
+        if (Model.Id == blogPage.Item3)
+        {
+            <li class="active" >
+                @blogPage.Item1
+            </li>
+        }
+        else
+        {
+            <li class="inactive" >
+                <a href="@blogPage.Item2">@blogPage.Item1</a>
+            </li>
+        }
+    }
+}
+</ul>

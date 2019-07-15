@@ -1,46 +1,57 @@
 Title: Home
-NoSidebar: true
-NoContainer: true
-NoGutter: true
+ShowInNavbar: true
+Order: 100
 ---
-<div class="jumbotron">
-    <div class="container">
-        <h1>What is Calvinverse?</h1>
-        <p>
-            Provides a number of repositories that contain all the necessary code to create a
-            build environment based on the idea of immutable infrastructure.
-        </p>
-    </div>
+
+<div class="hero">
+    <h1 class="hero__title">What is Calvinverse?</h1>
+    <p class="hero__description">
+        Provides a number of repositories that contain all the necessary code to create a
+        build environment either in the cloud or on-prem. All infrastructure resources
+        are based on the idea of
+        <a href="https://thenewstack.io/a-brief-look-at-immutable-infrastructure-and-why-it-is-such-a-quest/">immutable infrastructure</a>.
+    </p>
 </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-sm-6">
-
-            <h3>Infrastructure as code</h3>
+<div class="wrapper">
+    <div class="installation">
+    </div>
+    <div class="feature">
+        <div class="feature__item">
+            <h3 class="section__title">Infrastructure as code</h3>
             <p>
                 All infrastructure resources can be created from
                 <a href="https://en.wikipedia.org/wiki/Infrastructure_as_Code">scripts and configuration files</a>
-                which can stored in source control.
+                which are stored in source control thereby ensuring that all changes are tracked and
+                standard software development processes can be applied to the infrastructure resources.
             </p>
+        </div>
 
-            <h3>Immutable infrastructure</h3>
+        <div class="feature__item">
+            <h3 class="section__title">Immutable infrastructure</h3>
             <p>
                 The resources are designed to be created and configured once. Any changes to the
                 resource code will create a new resource. That way the new resource can be tested
                 and then be used to replace the old resource. If any issues still appear with the
                 new resource then the old one can be activated again in a quick roll-back process
             </p>
+        </div>
 
-            <h3>Automated builds</h3>
+        <div class="feature__item">
+            <h3 class="section__title">Automated builds</h3>
             <p>
                 All resources can be created with a standard build system. That way the resources
                 can be build using the same tooling as the applications. Thus providing fast feedback
                 and repeatable results.
             </p>
         </div>
-        <div class="col-sm-6 hidden-xs">
-            <img style="width: 100%;" src="/assets/img/screenshot.png" alt=""/>
-        </div>
     </div>
+    <div class="callout">
+        <p>Read our documentation for advanced keybindings and customization</p>
+        <a href="doc.html" class="button--primary">Documentation</a>
+    </div>
+</div>
+
+<div class="changelog">
+    @Html.Partial("_ChangeLog")
 </div>
