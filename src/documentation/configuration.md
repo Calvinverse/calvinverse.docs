@@ -1,5 +1,4 @@
-Title: Configuration
----
+
 
 * [Calvinverse.Infrastructure]() has some standard configuration files
 * The defaults are baked into the resources, but not everything can be

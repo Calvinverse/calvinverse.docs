@@ -1,5 +1,4 @@
-Title: Example: Complete environment
----
+
 
 * 3 consul hosts
 * 1 Consul UI host

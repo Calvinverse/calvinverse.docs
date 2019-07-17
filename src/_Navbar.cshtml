@@ -1,15 +1,21 @@
 <ul>
 @{
-    foreach(var doc in Context.Documents)
+    List<IDocument> pages = Context
+        .Documents
+        .GroupBy(x => Context.GetLink(x))
+        .Select(g => g.First())
+        .ToList();
+
+    foreach(var doc in pages)
     {
         if (doc != null)
         {
-        <!-- @doc.String(DocsKeys.Title) - @doc.Get(DocsKeys.ShowInNavbar, false) - @doc.Get("Order")?.GetType() -->
+        <!-- @doc.String(DocsKeys.Title) - @doc.Get(DocsKeys.ShowInNavbar, false) - @doc.Get("Order")?.GetType() - @Context.GetLink(@doc) -->
         }
     }
 
-    var pages = Documents[Docs.Pages]
-        .Where(x => x.Get<bool>(DocsKeys.ShowInNavbar, false))
+    var pagesWithOrder = pages
+        .Where(x => x.Bool(DocsKeys.ShowInNavbar, false))
         .Select(
             x =>
             {
@@ -36,7 +42,7 @@
             })
         .Where(x => !string.IsNullOrEmpty(x.Item1))
         .OrderBy(x => x.Item4);
-    foreach(var blogPage in pages)
+    foreach(var blogPage in pagesWithOrder)
     {
         if (Model.Id == blogPage.Item3)
         {

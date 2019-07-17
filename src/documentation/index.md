@@ -1,4 +1,6 @@
 Title: Documentation
+ShowInNavbar: true
+Order: 2500
 ---
 
 The [Calvinverse](https://github.com/Calvinverse) organization provides a number of repositories that
@@ -21,7 +23,6 @@ The code in the repositories will either create a [Hyper-V](https://en.wikipedia
 virtual machine image or a [Docker](https://www.docker.com/) container. If however a different
 virtualization platform is desired changes can be made to the [Packer](https://packer.io) configurations
 relatively easy to change the type of images that are generated.
-
 
 ## Available resources
 

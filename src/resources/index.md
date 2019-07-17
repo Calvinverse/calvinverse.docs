@@ -1,6 +1,6 @@
 Title: Resources
 ShowInNavbar: true
-Order: 1000
+Order: 5000
 ---
 
 This section describes the different resources that the Calvinverse project provides.
