@@ -60,33 +60,49 @@
         </nav>
 
         @{
-            if (!Model.Bool("NoSidebar", false))
+            if (Model.Bool("IsLanding", false))
             {
-                <!-- Left side column. contains the logo and sidebar -->
-                <aside class="doc__nav">
-                    <section>
-                        @Html.Partial("_SidebarHeader")
-                        @RenderSection("Search", false)
-                        <ul class="sidebar-menu">
-                            @{
-                                if (IsSectionDefined("Sidebar")) {
-                                    RenderSection("Sidebar");
-                                }
-                                else {
-                                    @Html.Partial("_Sidebar")
-                                }
-                            }
-                        </ul>
-                        @Html.Partial("_SidebarFooter")
-                    </section>
-                </aside>
+                @Html.Partial("_LandingHeader")
             }
         }
 
-         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            @RenderBody()
+        <div class="wrapper">
+            @{
+                if (!Model.Bool("NoSidebar", false))
+                {
+                    <!-- Left side column. contains the logo and sidebar -->
+                    <aside class="doc__nav">
+                        <section>
+                            @Html.Partial("_SidebarHeader")
+                            @RenderSection("Search", false)
+                            <ul>
+                                @{
+                                    if (IsSectionDefined("Sidebar")) {
+                                        RenderSection("Sidebar");
+                                    }
+                                    else {
+                                        @Html.Partial("Sidebar/_ChildPages")
+                                    }
+                                }
+                            </ul>
+                            @Html.Partial("_SidebarFooter")
+                        </section>
+                    </aside>
+                }
+            }
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                @RenderBody()
+            </div>
         </div>
+
+        @{
+            if (Model.Bool("IsLanding", false))
+            {
+                @Html.Partial("_LandingFooter")
+            }
+        }
 
         <footer class="footer">
             @Html.Partial("_Footer")

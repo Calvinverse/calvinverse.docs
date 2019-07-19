@@ -2,7 +2,7 @@
 .hero {
   text-align: center;
   background-color: var(--bg-color);
-  padding: 2rem 0 10rem 0;
+  padding: 2rem 2rem 10rem 2rem;
 }
 
 .hero__title {
