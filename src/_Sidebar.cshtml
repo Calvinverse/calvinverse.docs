@@ -3,23 +3,24 @@
     foreach(IDocument post in Model.DocumentList(Keys.PageDocuments))
     {
         if (post.Bool("ShowInSidebar", true))
-    {
-        <h2><a href="@Context.GetLink(post)">@post.WithoutSettings.String(Keys.Title)</a></h2>
-        @Html.Partial("_BlogPostDetails", post)
-        @if(fullContent)
         {
-            <div>
-                @Html.Raw(post.Content)
-            </div>
+            <h2><a href="@Context.GetLink(post)">@post.WithoutSettings.String(Keys.Title)</a></h2>
+            @Html.Partial("_BlogPostDetails", post)
+            @if(fullContent)
+            {
+                <div>
+                    @Html.Raw(post.Content)
+                </div>
+            }
+            else
+            {
+                <div>
+                    @Html.Raw(post.String(HtmlKeys.Excerpt))
+                    <a href="@Context.GetLink(post)">Read more...</a>
+                </div>
+            }
+            <hr />
+            fullContent = false;
         }
-        else
-        {
-            <div>
-                @Html.Raw(post.String(HtmlKeys.Excerpt))
-                <a href="@Context.GetLink(post)">Read more...</a>
-            </div>
-        }
-        <hr />
-        fullContent = false;
     }
 }
