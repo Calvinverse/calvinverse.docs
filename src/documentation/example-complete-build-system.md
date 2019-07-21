@@ -1,4 +1,5 @@
-
+ShowInSidebar: false
+---
 
 * 3 consul hosts
 * 1 Consul UI host

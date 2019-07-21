@@ -1,3 +1,6 @@
+ShowInSidebar: false
+---
+
 # Minimal environment
 
 * 1 Consul host
