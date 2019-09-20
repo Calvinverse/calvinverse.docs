@@ -5,7 +5,7 @@
         if (post.Bool("ShowInSidebar", true))
         {
             <h2><a href="@Context.GetLink(post)">@post.WithoutSettings.String(Keys.Title)</a></h2>
-            @Html.Partial("_BlogPostDetails", post)
+            @Html.Partial("_BlogPostDetails", Tuple.Create(post, post))
             @if(fullContent)
             {
                 <div>

@@ -18,7 +18,7 @@ if ($wyamExe -eq '')
     $wyamExe = $path.FullName
 }
 
-$commandLine = "& dotnet '$wyamExe' --input $source --output $destination --use-local-packages --packages-path $packages"
+$commandLine = "& dotnet '$wyamExe' build --verbose --input $source --output $destination --use-local-packages --packages-path $packages"
 if ($preview)
 {
     $commandLine += ' -p'

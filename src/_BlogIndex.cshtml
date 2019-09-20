@@ -7,23 +7,11 @@ Order: 5500
     bool fullContent = Model.String(Keys.RelativeFilePath) == $"{Context.String(DocsKeys.BlogPath)}/index.html" && Model.Get<int>(Keys.CurrentPage) == 1;
     foreach(IDocument post in Model.DocumentList(Keys.PageDocuments))
     {
-        <h2><a href="@Context.GetLink(post)">@post.WithoutSettings.String(Keys.Title)</a></h2>
-        @Html.Partial("_BlogPostDetails", post)
-        @if(fullContent)
-        {
-            <div>
-                @Html.Raw(post.Content)
-            </div>
-        }
-        else
-        {
-            <div>
-                @Html.Raw(post.String(HtmlKeys.Excerpt))
-                <a href="@Context.GetLink(post)">Read more...</a>
-            </div>
-        }
-        <hr />
-        fullContent = false;
+        <!-- <h2><a href="@Context.GetLink(post)">@post.WithoutSettings.String(Keys.Title)</a></h2>-->
+        @Html.Partial("_BlogPostDetails", Tuple.Create(Model, post))
+        <div>
+            @Html.Raw(post.Content)
+        </div>
     }
     <nav>
         @{
