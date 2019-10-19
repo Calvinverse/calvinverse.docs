@@ -2,7 +2,7 @@
 :root {
   --primary-color: #432E30;
   --primary-color-light: #8E7474;
-  --accent-color: #FE6A6B;
+  --accent-color: #A60001;
   --accent-color-light: #FFE4E4;
   --accent-color-dark: #B94B4C;
   --white-color: #FAFBFC;
@@ -15,10 +15,17 @@
 
 /* normalized */
 html, body {
-  padding: 0;
-  margin: 0;
-  font-family: 'Nunito Sans', sans-serif;
   background-color: white;
+  font-family: 'Nunito Sans',
+  sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
 }
 
 p {
@@ -28,7 +35,7 @@ p {
 
 a, a:hover {
   text-decoration: none;
-  color: var(--primary-color);
+  color: var(--accent-color);
 }
 
 hr {
@@ -218,7 +225,7 @@ nav {
 
 .menu .active
 {
-  background: var(--primary-color);
+  background: var(--accent-color);
   border-radius: 5px;
   color: #FFFFFF;
 }
@@ -305,15 +312,21 @@ table td:first-child {
 
 /* layout */
 .wrapper {
+  flex: 1 0 auto;
   margin: 0 auto;
   width: 90%;
 }
 
 .footer {
-  text-align: center;
   background-color: var(--primary-color);
-  padding: 2rem;
   color: white;
+  flex-shrink: 0;
+  padding: 2rem;
+  text-align: center;
+}
+
+.footer p {
+    color: var(--medium-gray-color);
 }
 
 @keyframes fadeUp {
