@@ -608,7 +608,7 @@
         Condition=" '$(IsMasterBranch)' == 'true' "
         -->
         <DeployStepsToExecute
-
+            Condition=" '$(BranchGitExpected)' == 'master' "
             Include="$(DeployStepsPushToGitBranch)">
             <ExecuteAfter></ExecuteAfter>
             <ExecuteBefore></ExecuteBefore>

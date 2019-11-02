@@ -1168,8 +1168,8 @@
         <!--
             The full path and version for the Wyam command line application
         -->
-        <ToolsExternalWyamPath Condition=" '$(ToolsExternalWyamPath)' == '' ">UNDEFINED</ToolsExternalWyamPath>
-        <ToolsExternalWyamVersion Condition=" '$(ToolsExternalWyamVersion)' == '' ">2.2.5</ToolsExternalWyamVersion>
+        <ToolsExternalWyamPath>UNDEFINED</ToolsExternalWyamPath>
+        <ToolsExternalWyamVersion>2.2.5</ToolsExternalWyamVersion>
     </PropertyGroup>
 
 

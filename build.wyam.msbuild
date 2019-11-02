@@ -8,12 +8,9 @@
         Condition="Exists('$(DirNBuildKitMsBuildShared)\shared.importbuildsharedsettings.props') AND '$(ExistsSharedImportBuildSharedSettings)' != 'true' "
         Project="$(DirNBuildKitMsBuildShared)\shared.importbuildsharedsettings.props" />
 
-    <Import Project="$(DirNBuildKitMsBuildExtensions)\GetToolFullPath.msbuild"
-            Condition="Exists('$(DirNBuildKitMsBuildExtensions)\GetToolFullPath.msbuild') AND '$(ExistsExtensionsGetToolFullPath)' != 'true' "/>
-    <Import Project="$(DirNBuildKitMsBuildExtensions)\NuGetInstall.msbuild"
-            Condition="Exists('$(DirNBuildKitMsBuildExtensions)\NuGetInstall.msbuild') AND '$(ExistsExtensionsNuGetInstall)' != 'true' " />
-    <Import Project="$(DirNBuildKitMsBuildExtensions)\SearchPackagesDirectoryForToolPath.msbuild"
-            Condition="Exists('$(DirNBuildKitMsBuildExtensions)\SearchPackagesDirectoryForToolPath.msbuild') AND '$(ExistsExtensionsSearchPackagesDirectoryForToolPath)' != 'true' " />
+    <Import
+        Condition="Exists('$(FileImports)') AND '$(ExistsFileImports)' != 'true' "
+        Project="$(FileImports)" />
 
     <Target
         DependsOnTargets="_MindVortex_Build_Wyam_GetToolPaths"
@@ -34,21 +31,26 @@
 
         <NuGetInstall
             Condition=" '$(ToolsExternalWyamPath)' == 'UNDEFINED' "
-            NuGetPath="$(ToolsExternalNuGetPath)"
-            PackageDirectory="$(DirPackages)"
+            ErrorInformation="@(ErrorInformation)"
+            ExcludeVersion="$(ShouldRestoreNuGetPackagesWithoutVersionInPath)"
+            NuGetExecutablePath="$(ToolsExternalNuGetPath)"
+            PackagesDirectory="$(DirPackages)"
             PackageName="Wyam"
             PackageVersion="$(ToolsExternalWyamVersion)"
-            Sources="@(NuGetSources)" />
+            Sources="@(NuGetSources)"
+            WorkingDirectory="$(DirWorkspace)" />
         <SearchPackagesDirectoryForToolPath
             Condition=" '$(ToolsExternalWyamPath)' == 'UNDEFINED' "
+            ErrorInformation="@(ErrorInformation)"
             FileToLocate="wyam.dll"
-            PackagesDir="$(DirPackages)">
+            PackagesDirectory="$(DirPackages)">
             <Output
                 PropertyName="ToolsExternalWyamPath"
                 TaskParameter="Path" />
         </SearchPackagesDirectoryForToolPath>
         <GetToolFullPath
             Condition=" '$(ToolsExternalWyamPath)' != 'UNDEFINED' "
+            ErrorInformation="@(ErrorInformation)"
             Tool="$(ToolsExternalWyamPath)">
             <Output
                 PropertyName="ToolsExternalWyamPath"

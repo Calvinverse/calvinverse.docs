@@ -28,7 +28,7 @@
             build/test/deploy phases. The other configurations files (e.g. build.settings.props etc.) are expected to
             be located in the same directory.
         -->
-        <SharedPropertyFile>$(DirUserSettings)\ops.props</SharedPropertyFile>
+        <SharedPropertyFile>$(DirUserSettings)\settings.props</SharedPropertyFile>
         <!--
             The file that contains all the NuGet packages that are used by the non-compilation parts
             of the build and deploy process. NuGet package files that are used by the compilation parts
@@ -41,17 +41,16 @@
         -->
         <FileNugetConfig Condition=" '$(FileNugetConfig)' == '' ">$(DirWorkspace)\nuget.config</FileNugetConfig>
 
-        <!-- Required packages -->
-        <!--
-            The name of the package that contains the entry point for the current build.
-        -->
-        <PackageNameEntryPoint Condition=" '$(PackageNameEntryPoint)' == '' ">Ops.Tools.Build.EntryPoint</PackageNameEntryPoint>
-
         <!-- External tools -->
         <!--
             The full path to the NuGet command line application. Expected to be found via the PATH environment variable.
         -->
         <ToolsExternalNuGetPath Condition=" '$(ToolsExternalNuGetPath)' == '' ">NuGet.exe</ToolsExternalNuGetPath>
+
+        <!--
+            The name of the package that contains the entry point for the current build.
+        -->
+        <PackageNameEntryPoint Condition=" '$(PackageNameEntryPoint)' == '' ">nBuildKit.MsBuild.EntryPoint</PackageNameEntryPoint>
 
         <!-- MsBuild -->
         <!--
@@ -99,8 +98,8 @@
         Display the help text for the current script and then exit.
     -->
     <Target Name="Help">
-        <Message Text="Ops.Tools.Build" />
-        <Message Text="Copyright 2016 Ops-Resource." />
+        <Message Text="nBuildKit - Build system" />
+        <Message Text="Copyright 2014 nBuildKit. Apache License, Version 2.0" />
         <Message Text="" />
         <Message Text="The following targets exist:" />
         <Message Text="" />
@@ -232,7 +231,9 @@
         DependsOnTargets="_EntryPoint_LocateEntryPoint"
         Name="_EntryPoint_Execute">
         <Error
+            Code="NBKEP0100"
             Condition=" '$(DirEntryPointPackage)' == '' OR !Exists('$(DirEntryPointPackage)')"
+            HelpKeyword="NBuildKitEntryPoint.PackageNotFound"
             Text="Could not determine the location of the $(PackageNameEntryPoint) NuGet package. The file was expected to be in '$(DirPackages)\$(PackageNameEntryPoint).&lt;VERSION&gt;' directory, but that directory does not exist. Cannot start build." />
 
         <MSBuild
@@ -261,7 +262,9 @@
         <Message Text="DirEntryPointPackage after search: $(DirEntryPointPackage)" />
 
         <Error
+            Code="NBKEP0101"
             Condition="!Exists('$(DirEntryPointPackage)')"
+            HelpKeyword="NBuildKitEntryPoint.NBuildKitNotFound"
             Text="Unable to find the nBuildKit directory." />
     </Target>
 
@@ -845,6 +848,7 @@
     -->
 
     <PropertyGroup>
-        <OpsToolsBuildEntryPointVersion>$VersionOpsTools$</OpsToolsBuildEntryPointVersion>
+        <!-- Defines the version number of the configuration file -->
+        <NBuildKitConfigurationVersion>1.1</NBuildKitConfigurationVersion>
     </PropertyGroup>
 </Project>
