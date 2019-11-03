@@ -15,3 +15,4 @@ The base resources are ...
 * windows base
 * linux base
 
+* linux container base

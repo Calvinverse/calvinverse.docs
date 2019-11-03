@@ -7,6 +7,7 @@ Items in the support category provide supporting services (doh). They are:
 * Goldfish for Vault UI
 
 * InfluxDb: Metrics and alerting
+* Grafana
 * Elasticsearch, Logstash, Kibana: Log processing and storage
 * RabbitMQ: Distributed queue
 * File storage
