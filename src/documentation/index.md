@@ -16,9 +16,10 @@ build [environment](environments.html), for instance:
 
 - A [build controller](../resources/build-controller.html): This resource collects [build jobs]()
   and sends them to the build executors which process the jobs.
-- A [build executor](): This resource processes a build job and executes the actual build.
-- An [artefact repository](): This resource stores artefacts that were created during a build and
-  allows other builds or processes to consume these artefacts.
+- A [build executor](../resources/build-agent.html): This resource processes a build job and executes
+  the actual build.
+- An [artefact repository](../resources/artefact-storage.html): This resource stores artefacts that
+  were created during a build and allows other builds or processes to consume these artefacts.
 
 The different resources can be combined into a [relatively simple](example-minimal-build-system.html)
 or small build system which may consist of only a few machines, or they may be combined into a far
@@ -52,5 +53,7 @@ created.
 
 In order to [get started](getting-started.html) creating a build system the first thing to do
 is to [create](how-to-build.html) the resources that will make up the build system. Once the
-resource images have been created they can be [assembled](setup.html) into a functioning
-build environment.
+resource images have been created one needs to decide on the way the resources are
+going to be [assembled](setup.html) into a functioning build environment. Part of this process
+involves storing the [global configurations](configuration.html) for all the resources in a
+sensible way.
