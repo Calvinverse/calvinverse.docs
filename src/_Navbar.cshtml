@@ -6,14 +6,6 @@
         .Select(g => g.First())
         .ToList();
 
-    foreach(var doc in pages)
-    {
-        if (doc != null)
-        {
-        <!-- @doc.String(DocsKeys.Title) - @doc.Get(DocsKeys.ShowInNavbar, false) - @doc.Get("Order")?.GetType() - @Context.GetLink(@doc) -->
-        }
-    }
-
     var pagesWithOrder = pages
         .Where(x => x.Bool(DocsKeys.ShowInNavbar, false))
         .Select(
@@ -44,7 +36,7 @@
         .OrderBy(x => x.Item4);
     foreach(var blogPage in pagesWithOrder)
     {
-        if (Model.Id == blogPage.Item3)
+        if ((Context.GetLink(Model).StartsWith("/" + blogPage.Item1.ToLower(), StringComparison.OrdinalIgnoreCase)) || (Context.GetLink(Model).Equals("/") && blogPage.Item1.Equals("Home")))
         {
             <li class="active" >
                 @blogPage.Item1
