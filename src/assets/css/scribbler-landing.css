@@ -1,8 +1,12 @@
 /* hero section */
 .hero {
+  background-color: var(--hero-bg-color);
+  border-radius: 10px 10px 10px 10px;
+  flex: 1 0 auto;
+  margin: 0em auto 4em auto;
+  padding: 2rem 2rem 4rem 2rem;
   text-align: center;
-  background-color: var(--bg-color);
-  padding: 2rem 2rem 10rem 2rem;
+  width: 80%;
 }
 
 .hero__title {
@@ -64,8 +68,11 @@
 
 /* changelog section */
 .changelog {
-  background-color: var(--bg-color);
-  padding: 2rem 0;
+  background-color: var(--wrapper-bg-color);
+  flex: 1 0 auto;
+  margin: 0 auto;
+  padding: 2em;
+  width: 80%;
 }
 
 .changelog__item {
