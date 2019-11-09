@@ -7,9 +7,10 @@ The [Calvinverse](https://github.com/Calvinverse) organization provides a number
 contain all the necessary code to create a [build environment](https://en.wikipedia.org/wiki/Build_automation)
 based on the idea of [immutable infrastructure](https://martinfowler.com/bliki/ImmutableServer.html). In
 other words resources, e.g. virtual machines or containers, are created with all the required applications
-and tooling in place. Once a specific version of a resources is created it is never changed, neither
-in the resource form or when deployed as an instance. If changes are require a new version of the
-resource is created and instances based on this resource are deployed.
+and tooling in place. Once a specific version of a resources is created it is never be changed, neither
+in the resource form or when deployed as an instance. If changes are required then a new version of the
+resource is created, tested and released. Once the resource is released new instances based on this
+resource can be deployed.
 
 The repositories describe resources different resources which are needed to create a fully functioning
 build [environment](environments.html), for instance:
@@ -23,11 +24,11 @@ build [environment](environments.html), for instance:
 
 The different resources can be combined into a [relatively simple](example-minimal-build-system.html)
 or small build system which may consist of only a few machines, or they may be combined into a far
-more [complicated environment](example-complete-build-system.html) which consist of many different
+more [complicated environment](example-complete-build-system.html) which consists of many different
 services for those cases where the build workflow is more complex.
 
 The code in the repositories will either create a [Hyper-V](https://en.wikipedia.org/wiki/Hyper-V)
-virtual machine image or a [Docker](https://www.docker.com/) container. If however a different
+virtual machine image or a [Docker](https://www.docker.com/) container. However a different
 virtualization platform is desired changes can be made to the [Packer](https://packer.io) configurations
 relatively easy to change the type of images that are generated.
 
