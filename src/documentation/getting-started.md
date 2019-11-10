@@ -2,6 +2,10 @@ Title: Getting started
 ShowInNavbar: false
 ---
 
+## Which resources are required
+
+### Build resources
+
 In order to create a build [environment](environments.html) the first step is to determine what the
 requirements are for the environment. Important factors to consider are for instance:
 
@@ -26,6 +30,8 @@ are required and roughly what the hardware specs for those resources should be. 
 always possible to add more resources or to update a resource that has acquired additional
 responsibilities.
 
+### Supporting resources
+
 With the pipeline resources decided on the next step is to determine what supporting resources are
 needed. For these resources the following factors are important to consider:
 
@@ -49,6 +55,8 @@ needed. For these resources the following factors are important to consider:
   notifications for the build controller as well as using RabbitMQ as a queue for log messages
   before they are processed and stored.
 
+### Environments
+
 The last part of the environment design is to consider if one environment is enough. It may for
 instance be beneficial to have a build environment in each office. However even if that is not
 required it is important to consider whether or not the following two additional environments
@@ -65,20 +73,89 @@ are required:
   of changes to the resources in the production build environment or if there is a team that is
   dedicated to maintaining and improving the production build environment.
 
+## Prepare a build machine
+
 With all the requirements for the different build environments decided it is possible to start
 creating the resources for the environment.
 
-* Ideally you'll have elected to have the meta build environment. In that case you'll have to
-  bootstrap the environment. If you have elected not to have this environment then you are essentially
-  in always bootstrapping mode
-  * Configure a developer machine with Hyper-V to create the (first) resources
-    * note that calvinverse is currently setup to use Hyper-V but all images are created by using
-      [Packer](https://packer.io) which means it should be relatively straight forward to change to
-      a different hosting technology
-* Build the base resources first
-* Build the images for the supporting infrastructure
-* Build the images for the build resources
+If you have decided to build a meta build environment then this environment should be created
+first. Once it has been created then other environments can be created and deployed with the
+help of the meta build environment.
+
+To create any environment the first thing to do is to create the resources. If there is no
+build environment to create these then you will have to configure a developer machine with
+the [appropriate tooling](how-to-build.html).
+The Calvinverse resources are by default configured to be built on Hyper-V but the [Packer](https://packer.io)
+configuration files can easily be updated to work with other virtualization technologies. So in
+order to build the resources a machine should be configured with the selected virtualization
+system.
+
+In addition the build scripts for the Calvinverse resources make use of
+[MsBuild](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild?view=vs-2019) as the
+build engine via the [nBuildKit](https://github.com/nbuildkit/nBuildKit.MsBuild) and
+[ops-tools-build](https://github.com/ops-resource/ops-tools-build) libraries which means that
+MsBuild should also be installed on the machine.
+
+Finally because the Calvinverse resources are created via [Chef](https://www.chef.io/) scripts it is
+required to install [Ruby](https://www.ruby-lang.org/en/) and [some Ruby gems](how-to-build.html) so
+that the [Chefspec](https://docs.chef.io/chefspec.html) tests can be executed. It is not necessary to
+install Chef itself given that all resources are created by installing Chef on the resource and
+running [Chef solo](https://docs.chef.io/chef_solo.html) to configure the resource. Once all the
+tools are installed the build process can be [started](how-to-build.html).
+
+## Create the base resources
+
+The first resources to build are the [base resources](../resources/category-base.html), i.e. the
+resources that form the base for all other resources. There are three base resources:
+
+* [base.linux](https://github.com/Calvinverse/base.linux) - The base for Linux based resources
+  on a virtual machine.
+* [base.windows](https://github.com/Calvinverse/base.windows) - The base for Windows based resources
+  on a virtual machine.
+* [resource.container.linux.consul](https://github.com/Calvinverse/resource.container.linux.consul) -
+  The base for Linux based resources in a [Docker](https://docker.io) container.
+
+Obviously you only need to build the base resources which are required for your environment. If you
+don't plan to put services in containers then you don't need to create the container base image.
+
+## Create the supporting resources
+
+Once the base resources have been created the next step is to create the supporting resources.
+
+* [resource.hashi.server](https://github.com/Calvinverse/resource.hashi.server) - Defines a
+  [Consul]() [server]() instance. Used to form the core of the environment. Once this resource
+  has been created you can start your environment. Note however that it won't do anything useful
+  without additional resources.
+* [resource.hashi.ui](https://github.com/Calvinverse/resource.hashi.ui) - Provides a UI for
+  Consul which allows you to view the nodes in the environment, the services that are present
+  and the key value (K-V) information.
+* [resource.proxy.edge](https://github.com/Calvinverse/resource.proxy.edge) - A
+  [reverse proxy]() that allows users to interact with services inside the environment without
+  being part of it.
+* [resource.secrets](https://github.com/Calvinverse/resource.secrets) - Provides secure storage
+  of secrets in the environment.
+* Queue
+* metrics.storage
+* metrics.dashboard
+* metrics.monitoring
+* documents.storage
+* documents.dashboard
+* logs.processor
+
+## Create the build resources
+
+Build resources
+
+* build.master
+* build.agent.windows
+* artefacts
+
+## Configuration
+
 * Create the [environment configuration](configuration.html)
+
+## Deployment
+
 * Deploy the supporting resources
 * Deploy the build resources
 * Test, fix things and deploy
