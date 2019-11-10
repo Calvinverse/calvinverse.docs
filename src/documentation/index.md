@@ -15,7 +15,7 @@ resource can be deployed.
 The repositories describe resources different resources which are needed to create a fully functioning
 build [environment](environments.html), for instance:
 
-- A [build controller](../resources/build-controller.html): This resource collects [build jobs]()
+- A [build controller](../resources/build-controller.html): This resource collects build jobs
   and sends them to the build executors which process the jobs.
 - A [build executor](../resources/build-agent.html): This resource processes a build job and executes
   the actual build.
