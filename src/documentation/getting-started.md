@@ -120,35 +120,55 @@ don't plan to put services in containers then you don't need to create the conta
 
 ## Create the supporting resources
 
-Once the base resources have been created the next step is to create the supporting resources.
+Once the base resources have been created the next step is to create the
+[supporting resources](../resources/category-support.html). A number of these resources are required
+but not all of them are, so you only need to create those that are required for the
+environment you have selected, whether it is [small](example-minimal-build-system.html) or
+[large](example-complete-build-system.html).
 
 * [resource.hashi.server](https://github.com/Calvinverse/resource.hashi.server) - Defines a
-  [Consul]() [server]() instance. Used to form the core of the environment. Once this resource
-  has been created you can start your environment. Note however that it won't do anything useful
-  without additional resources.
+  [Consul](https://consul.io) [server](https://www.consul.io/docs/internals/architecture.html)
+  instance. Used to form the core of the environment. Once this resource has been created you can
+  start your environment. Note however that it won't do anything useful without additional resources.
 * [resource.hashi.ui](https://github.com/Calvinverse/resource.hashi.ui) - Provides a UI for
   Consul which allows you to view the nodes in the environment, the services that are present
   and the key value (K-V) information.
 * [resource.proxy.edge](https://github.com/Calvinverse/resource.proxy.edge) - A
-  [reverse proxy]() that allows users to interact with services inside the environment without
-  being part of it.
-* [resource.secrets](https://github.com/Calvinverse/resource.secrets) - Provides secure storage
-  of secrets in the environment.
-* Queue
-* metrics.storage
-* metrics.dashboard
-* metrics.monitoring
-* documents.storage
-* documents.dashboard
-* logs.processor
+  [reverse proxy](https://fabiolb.net/) that allows users to interact with services inside the
+  environment without being part of it.
+* [resource.secrets](https://github.com/Calvinverse/resource.secrets) - Provides
+  [secure storage](https://vaultproject.io) of secrets in the environment.
+* [resource.queue](https://github.com/Calvinverse/resource.queue) - Message
+  [queueing](https://www.rabbitmq.com/) for notifications and to relay log messages.
+* [resource.metrics.storage](https://github.com/Calvinverse/resource.metrics.storage) - Stores
+  [time series metrics](https://www.influxdata.com/products/influxdb-overview/) for all services and
+  nodes in the environment.
+* [resource.metrics.dashboard](https://github.com/Calvinverse/resource.metrics.dashboard) -
+  [Dashboards](https://grafana.com/) for all the time series metrics.
+* [resource.metrics.monitoring](https://github.com/Calvinverse/resource.metrics.monitoring) -
+  [Alerting](https://www.influxdata.com/time-series-platform/kapacitor/) based on the time series metrics
+* [resource.documents.storage](https://github.com/Calvinverse/resource.documents.storage) -
+  Indexes [documents](https://www.elastic.co/products/elasticsearch) for search.
+* [resource.documents.dashboard](https://github.com/Calvinverse/resource.documents.dashboard) -
+  Provides [dashboards](https://www.elastic.co/products/kibana) for the indexed documents
+* [resource.logs.processor](https://github.com/Calvinverse/resource.logs.processor) - Processes
+  [logs](https://www.elastic.co/products/logstash) from different sources and sends them to the
+  document storage.
 
 ## Create the build resources
 
-Build resources
+Finally the last set of resources that need to be created are the
+[pipeline resources](../resources/category-pipeline.html) which provide the actual build pipeline
+capabilities.
 
-* build.master
-* build.agent.windows
-* artefacts
+* [resource.build.master](https://github.com/Calvinverse/resource.build.master) - The
+  [controller](https://jenkins.io) for the build system. Divides the build jobs over the available
+  agents and provides the UI for users to interact with.
+* [resource.build.agent.windows](https://github.com/Calvinverse/resource.build.agent.windows) -
+  Provides the compute resources for the build jobs.
+* [resource.artefacts](https://github.com/Calvinverse/resource.artefacts) - Stores different types
+  of [artefacts](https://www.sonatype.com/nexus-repository-oss) so that they can be used during in
+  the different pipeline stages.
 
 ## Configuration
 
