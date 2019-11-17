@@ -172,10 +172,94 @@ capabilities.
 
 ## Configuration
 
-* Create the [environment configuration](configuration.html)
+Once all the resources have been created the next step is to create the
+[environment configuration](configuration.html) which will determine what the environment will
+look like.
+
+The configuration consists of three different parts:
+
+* The configuration files that indicate to Consul which datacenter it should be connecting to. For
+  the VM resources these files are stored on an ISO file which can be attached to the VM when a
+  new instance of a resource is made. There are ISOs for the Consul server and for Linux and Windows
+  Consul clients.
+  * Additionally the ISO file also contains a [zone configuration](https://nlnetlabs.nl/documentation/unbound/unbound.conf/)
+    file for [Unbound](https://nlnetlabs.nl/projects/unbound/about/) which is the recursive DNS
+    resolver which is placed on the base resources to allow cached resolution of DNS addresses from
+    both Consul and external sources
+* The configuration information for all other services. This configuration information is stored
+  in YAML files and should be uploaded to the Consul Key-Value store as soon as the Consul servers
+  have been created. All other resources will use the information in the Consul K-V to complete the
+  environment specific provisioning steps once a new instance of a resource is connected to the
+  environment.
+* The configuration, roles and policies which should be uploaded to Vault once at least one of the
+  Vault servers has been created. This then allows other resources to obtain the required secrets
+  when they are authenticate with Vault.
+
 
 ## Deployment
 
-* Deploy the supporting resources
-* Deploy the build resources
-* Test, fix things and deploy
+The final step is to [deploy](setup.html) the newly created resources. The following list is
+the suggested order in which the resources should be created. This list assumes that you have
+elected to create all the resources. Any steps that describe resources which are not in your
+environment can be skipped.
+
+First deploy all the supporting services and make sure they are running correctly.
+
+* To form the core of the environment the first resource to deploy are the Consul server resources.
+  These are deployed by creating the desired number of VMs with the generated VM hard drives for the
+  [resource.hashi.server](https://github.com/Calvinverse/resource.hashi.server) resource. Once
+  the VMs are created start them and wait for the Consul server instances to connect to each other.
+* Upload all the K-V configuration values to one of the Consul server instances so that all other
+  resources can configure themselves.
+* In order to be able to connect to the different resources being deployed you need to deploy at
+  least one proxy server by creating an instance of the [resource.proxy.edge](https://github.com/Calvinverse/resource.proxy.edge)
+  resource. It pays to do this early so that you can follow the deployment of the different
+  resources. So create the desired number of VMs for the reverse proxies. Start the VMs and wait for
+  the proxy server to start. Once it is started  you should be able to get to the
+  routing page by browsing to `http://<PROXY_IP_ADDRESS>:9998`.
+* In order to further follow the instances as they start up it is sensible to deploy the Consul UI
+  services by creating an instance of the [resource.hashi.ui](https://github.com/Calvinverse/resource.hashi.ui)
+  resource. Once started this should show up on the proxy after which you can reach it by browsing
+  to  `http://<PROXY_IP_ADDRESS>/dashboards/consul`.
+* Deploy the queue service by deploying at least one but preferably at least three instances of
+  the [resource.queue](https://github.com/Calvinverse/resource.queue) resource and configure the
+  desired [vhosts](https://www.rabbitmq.com/vhosts.html), queues and users.
+* Deploy the Vault instances by creating the desired number of VMs of the [resource.secrets](https://github.com/Calvinverse/resource.secrets)
+  resource. Start the VMs and wait for the Vault service to show up in the Consul cluster. Once the
+  service is connected it can be [initialized](https://www.vaultproject.io/docs/commands/operator/init.html).
+* After creating and initializing the Vault resources we can [unseal](https://www.vaultproject.io/docs/concepts/seal.html)
+  the services and then set all the [mounts](https://www.vaultproject.io/docs/secrets/),
+  [policies](https://www.vaultproject.io/docs/concepts/policies.html).
+* Deploy the metrics resources in the following order:
+  * Deploy the InfluxDb database server by deploying one instance of the
+  [resource.metrics.storage](https://github.com/Calvinverse/resource.metrics.storage) resource.
+  * Deploy the Grafana service by deploying one instance of the
+    [resource.metrics.dashboard](https://github.com/Calvinverse/resource.metrics.dashboard) resource.
+    Once the service is up an running you can connect to it by browsing to
+    `http://<PROXY_IP_ADDRESS>/dashboards/metrics`
+  * Optionally deploy a Kapacitor service by deploying an instance of the
+    [resource.metrics.monitoring](https://github.com/Calvinverse/resource.metrics.monitoring) resource.
+* Deploy the document resources in the following order:
+  * Deploy an Elasticsearch cluster by deploying the desired number of instances of the
+    [resource.documents.storage](https://github.com/Calvinverse/resource.documents.storage) resource.
+  * Deploy a Kibana service by deploying an instance of the
+    [resource.documents.dashboard](https://github.com/Calvinverse/resource.documents.dashboard)
+    resource. Once the Grafana service has started you can reach it by browsing to
+    `http://<PROXY_IP_ADDRESS>/dashboards/documents`.
+  * Deploy one or more Logstash instances by deploying the desired number of instances of the
+    [resource.logs.processor](https://github.com/Calvinverse/resource.logs.processor) resource.
+
+Once the supporting services have been deployed then the build resources can be deployed.
+
+* Deploy once instance of the Jenkins controller by deploying an instance of the
+  [resource.build.master](https://github.com/Calvinverse/resource.build.master) resource. Once
+  the instance is running the Jenkins service will start and can be reached by browsing to
+  `http://<PROXY_IP_ADDRESS>/builds`
+* Deploy one or more build agents by deploying the desired number of instances of the
+  [resource.build.agent.windows](https://github.com/Calvinverse/resource.build.agent.windows) resource.
+* Deploy the Nexus artefact storage service by deploying a single instance of the
+  [resource.artefacts](https://github.com/Calvinverse/resource.artefacts) resource. Once Nexus is
+  running it can be reached by browsing to `http://<PROXY_IP_ADDRESS>/artefacts`.
+
+Once the build resources have been added the environment is complete and the next stage can begin,
+adding the product builds.
