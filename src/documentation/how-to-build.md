@@ -1,4 +1,8 @@
-# How to build
+Title: How to build
+ShowInNavbar: false
+---
+
+# How to build the resources
 
 To create one of the resources
 

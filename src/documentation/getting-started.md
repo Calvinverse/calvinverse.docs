@@ -2,12 +2,17 @@ Title: Getting started
 ShowInNavbar: false
 ---
 
-## Which resources are required
+# Getting started
+
+In order to create a build [environment](environments.html) the first step is to determine what the
+requirements are for the environment. Once that is known the correct resources can be selected and
+then deployed.
+
+## Select the resources
 
 ### Build resources
 
-In order to create a build [environment](environments.html) the first step is to determine what the
-requirements are for the environment. Important factors to consider are for instance:
+ Important factors to consider are for instance:
 
 * How many builds or pipeline actions are expected to be executed in a specific time period. If this
   is a small number then the build system will not need many executors, nor will all the other

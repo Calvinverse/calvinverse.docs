@@ -1,6 +1,8 @@
-Title: Environments
+Title: Environments - What and why?
 ShowInNavbar: false
 ---
+
+# Environments
 
 An important part of creating a build pipeline is to define which resources are part of the
 build environment. In order to do that it is important to understand what is meant with the term

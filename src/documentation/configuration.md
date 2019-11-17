@@ -1,4 +1,8 @@
+Title: Configuration
+ShowInNavbar: false
+---
 
+# Configure an environment
 
 * [Calvinverse.Infrastructure]() has some standard configuration files
 * The defaults are baked into the resources, but not everything can be
@@ -19,6 +23,7 @@ a web address or the Consul K-V store. However in order to tell the resource
 what the configuration store is you need to provide an environment specific
 configuration when the resource is first initialized, i.e. the initial
 configuration.
+
 In calvinverse all resources assume that an ISO file (i.e. a CD / DVD) is mounted
 when the resource first boots (for VMs), or environment variables are set
 (for containers). These initial configurations only contain information on
