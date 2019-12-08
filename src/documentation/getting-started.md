@@ -249,7 +249,7 @@ First deploy all the supporting services and make sure they are running correctl
     [resource.documents.storage](https://github.com/Calvinverse/resource.documents.storage) resource.
   * Deploy a Kibana service by deploying an instance of the
     [resource.documents.dashboard](https://github.com/Calvinverse/resource.documents.dashboard)
-    resource. Once the Grafana service has started you can reach it by browsing to
+    resource. Once the Kibana service has started you can reach it by browsing to
     `http://<PROXY_IP_ADDRESS>/dashboards/documents`.
   * Deploy one or more Logstash instances by deploying the desired number of instances of the
     [resource.logs.processor](https://github.com/Calvinverse/resource.logs.processor) resource.
