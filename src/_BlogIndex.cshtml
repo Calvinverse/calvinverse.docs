@@ -13,10 +13,12 @@ Order: 5500
             @Html.Raw(post.Content)
         </div>
     }
+    <!--
     <nav>
         @{
             string directory = Model.FilePath(Keys.RelativeFilePath).Directory.FullPath;
         }
+
         <ul class="pager">
             <li class="previous">
                 @if(Model.Bool(Keys.HasPreviousPage))
@@ -35,4 +37,5 @@ Order: 5500
             </li>
         </ul>
     </nav>
+    -->
 }
