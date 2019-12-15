@@ -1,6 +1,8 @@
 The base resources are ...
 
 
+**Status: To be done**
+
 * Base images / containers that other images / containers are based on
 * Have all the shared applications
   * Consul

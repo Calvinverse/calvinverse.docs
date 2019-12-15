@@ -1,6 +1,9 @@
 ShowInSidebar: false
 ---
 
+**Status: Thoughts only, needs proper formatting**
+
+
 * 3 consul hosts
 * 1 Consul UI host
 * 2 Vault hosts

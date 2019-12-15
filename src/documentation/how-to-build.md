@@ -2,6 +2,10 @@ Title: How to build
 ShowInNavbar: false
 ---
 
+**Status: Thoughts only, needs proper formatting**
+
+[Issue #9](https://github.com/Calvinverse/calvinverse.docs/issues/8)
+
 # How to build the resources
 
 To create one of the resources

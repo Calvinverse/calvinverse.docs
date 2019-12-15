@@ -1,6 +1,8 @@
 ShowInSidebar: false
 ---
 
+**Status: Thoughts only, needs proper formatting**
+
 # Minimal environment
 
 * 1 Consul host
