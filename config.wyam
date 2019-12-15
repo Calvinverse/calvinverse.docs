@@ -11,3 +11,70 @@ Settings[DocsKeys.Title] = "Calvinverse";
 
 // Edit settings
 Settings[DocsKeys.BaseEditUrl] = "https://github.com/calvinverse/calvinverse.docs/tree/master/src/";
+
+// pipelines
+// Update the blog files to not all use the same template because then we can't
+// add the index to the navbar
+
+// Categories
+int categoryIndex = Pipelines.IndexOf(Docs.BlogCategories);
+Pipelines.Remove(Docs.BlogCategories);
+Pipelines.Insert(categoryIndex, Docs.BlogCategories,
+    (IPipeline)new Wyam.Web.Pipelines.Archive(
+        Docs.BlogCategories,
+        new Wyam.Web.Pipelines.ArchiveSettings
+            {
+                Pipelines = new string[] { nameof(Wyam.Docs.Docs.BlogPosts) },
+                TemplateFile = ctx => "_BlogArchive.cshtml",
+            }));
+
+// BlogArchives
+int archiveIndex = Pipelines.IndexOf(Docs.BlogArchives);
+Pipelines.Remove(Docs.BlogArchives);
+Pipelines.Insert(archiveIndex, Docs.BlogArchives,
+    (IPipeline)new Wyam.Web.Pipelines.Archive(
+        Docs.BlogArchives,
+        new Wyam.Web.Pipelines.ArchiveSettings
+            {
+                Pipelines = new string[] { nameof(Wyam.Docs.Docs.BlogPosts) },
+                TemplateFile = ctx => "_BlogArchive.cshtml",
+            }));
+
+// BlogYearlyArchives
+int yearlyCategoryIndex = Pipelines.IndexOf(Docs.BlogYearlyArchives);
+Pipelines.Remove(Docs.BlogYearlyArchives);
+Pipelines.Insert(yearlyCategoryIndex, Docs.BlogYearlyArchives,
+    (IPipeline)new Wyam.Web.Pipelines.Archive(
+        Docs.BlogYearlyArchives,
+        new Wyam.Web.Pipelines.ArchiveSettings
+            {
+                Pipelines = new string[] { nameof(Wyam.Docs.Docs.BlogPosts) },
+                TemplateFile = ctx => "_BlogArchive.cshtml",
+            }));
+
+// Tags
+int tagIndex = Pipelines.IndexOf(Docs.BlogTags);
+Pipelines.Remove(Docs.BlogTags);
+Pipelines.Insert(tagIndex, Docs.BlogTags,
+    (IPipeline)new Wyam.Web.Pipelines.Archive(
+        Docs.BlogTags,
+        new Wyam.Web.Pipelines.ArchiveSettings
+            {
+                Pipelines = new string[] { nameof(Wyam.Docs.Docs.BlogPosts) },
+                TemplateFile = ctx => "_BlogTag.cshtml",
+            }));
+
+// BlogAuthors
+int authorTagIndex = Pipelines.IndexOf(Docs.BlogAuthors);
+Pipelines.Remove(Docs.BlogAuthors);
+Pipelines.Insert(authorTagIndex, Docs.BlogAuthors,
+    (IPipeline)new Wyam.Web.Pipelines.Archive(
+        Docs.BlogAuthors,
+        new Wyam.Web.Pipelines.ArchiveSettings
+            {
+                Pipelines = new string[] { nameof(Wyam.Docs.Docs.BlogPosts) },
+                TemplateFile = ctx => "_BlogTag.cshtml",
+            }));
+
+// Remove the pipelines we don't want
+Pipelines.Remove("Name");

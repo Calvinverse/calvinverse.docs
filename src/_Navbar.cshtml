@@ -1,0 +1,53 @@
+<ul>
+@{
+    List<IDocument> pages = Context
+        .Documents
+        .GroupBy(x => Context.GetLink(x))
+        .Select(g => g.First())
+        .ToList();
+
+    var pagesWithOrder = pages
+        .Where(x => x.Bool(DocsKeys.ShowInNavbar, false))
+        .Select(
+            x =>
+            {
+                var link = Context.GetLink(x);
+                var title = x.String(DocsKeys.Title);
+
+                int order = 1000;
+                if (string.IsNullOrEmpty(title) && string.Equals(link, "/", StringComparison.OrdinalIgnoreCase))
+                {
+                    title = "Home";
+                    order = -1;
+                }
+
+                var orderAsObj = x.Get("Order") as string;
+                if (orderAsObj != null)
+                {
+                    if (!int.TryParse(orderAsObj, out order))
+                    {
+                        title = string.Empty;
+                    }
+                }
+
+                return Tuple.Create(title, link, x.Id, order);
+            })
+        .Where(x => !string.IsNullOrEmpty(x.Item1))
+        .OrderBy(x => x.Item4);
+    foreach(var blogPage in pagesWithOrder)
+    {
+        if ((Context.GetLink(Model).StartsWith("/" + blogPage.Item1.ToLower(), StringComparison.OrdinalIgnoreCase)) || (Context.GetLink(Model).Equals("/") && blogPage.Item1.Equals("Home")))
+        {
+            <li class="active" >
+                @blogPage.Item1
+            </li>
+        }
+        else
+        {
+            <li class="inactive" >
+                <a href="@blogPage.Item2">@blogPage.Item1</a>
+            </li>
+        }
+    }
+}
+</ul>

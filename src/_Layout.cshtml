@@ -1,0 +1,8 @@
+@{
+    Layout = "/_Master.cshtml";
+    ViewData[Keys.Title] = @Model.WithoutSettings.String(Keys.Title);
+}
+
+<div>
+    @RenderBody()
+</div>

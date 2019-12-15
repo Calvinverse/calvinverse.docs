@@ -1,0 +1,7 @@
+@{
+	Layout = "/_BlogLayout.cshtml";
+}
+
+@Html.Partial("_BlogPostDetails", Tuple.Create(Model, Model))
+
+@RenderBody()

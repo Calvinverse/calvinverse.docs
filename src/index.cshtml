@@ -1,46 +1,47 @@
-Title: Home
+IsLanding: true
 NoSidebar: true
-NoContainer: true
-NoGutter: true
+Order: 100
+ShowInNavbar: true
+Title: Home
 ---
-<div class="jumbotron">
-    <div class="container">
-        <h1>What is Calvinverse?</h1>
+
+
+<div class="installation">
+</div>
+<div class="feature">
+    <div class="feature__item">
+        <h3 class="section__title">Infrastructure as code</h3>
         <p>
-            Provides a number of repositories that contain all the necessary code to create a
-            build environment based on the idea of immutable infrastructure.
+            All infrastructure resources can be created from
+            <a href="https://en.wikipedia.org/wiki/Infrastructure_as_Code">scripts and configuration files</a>
+            which are stored in source control thereby ensuring that all changes are tracked and
+            standard software development processes can be applied to the infrastructure resources.
+        </p>
+    </div>
+
+    <div class="feature__item">
+        <h3 class="section__title">Immutable infrastructure</h3>
+        <p>
+            The resources are designed to be created and configured once. Any changes to the
+            code will create a new resource. That way the new resource can be tested
+            and then be used to replace the old one. If any issues still appear with the
+            new resource then the old one can be activated again in a quick roll-back process
+        </p>
+    </div>
+
+    <div class="feature__item">
+        <h3 class="section__title">Automated builds</h3>
+        <p>
+            All resources can be created with a standard build system. That way the resources
+            can be build using the same tooling as the applications. Thus providing fast feedback
+            and repeatable results.
         </p>
     </div>
 </div>
-
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-sm-6">
-
-            <h3>Infrastructure as code</h3>
-            <p>
-                All infrastructure resources can be created from
-                <a href="https://en.wikipedia.org/wiki/Infrastructure_as_Code)">scripts and configuration files</a>
-                which are stored in source control.
-            </p>
-
-            <h3>Immutable infrastructure</h3>
-            <p>
-                The resources are designed to be created and configured once. Any changes to the
-                resource code will create a new resource. That way the new resource can be tested
-                and then be used to replace the old resource. If any issues still appear with the
-                new resource then the old one can be activated again in a quick roll-back process
-            </p>
-
-            <h3>Automated builds</h3>
-            <p>
-                All resources can be created with a standard build system. That way the resources
-                can be build using the same tooling as the applications. Thus providing fast feedback
-                and repeatable results.
-            </p>
-        </div>
-        <div class="col-sm-6 hidden-xs">
-            <img style="width: 100%;" src="/assets/img/screenshot.png" alt=""/>
-        </div>
-    </div>
+<div class="callout">
+    <p>
+        Read our documentation for information on how to create the resources, test them and
+        deploy them.
+    </p>
+    <a href="/documentation/index" class="button--primary">Documentation</a>
 </div>
