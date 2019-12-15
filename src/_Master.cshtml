@@ -1,0 +1,111 @@
+@{
+        string Title = Model.String(DocsKeys.Title);
+        string PageTitle = Context.String(DocsKeys.Title) + (string.IsNullOrWhiteSpace(Title) ? string.Empty : " - " + Title);
+}
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="@Context.String(DocsKeys.Description)" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>@PageTitle</title>
+
+        <link rel="shortcut icon" href="@Context.GetLink("/favicon.ico")" type="image/x-icon">
+        <link rel="icon" href="@Context.GetLink("/favicon.ico")" type="image/x-icon">
+
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href="@Context.GetLink("/assets/css/scribbler-global.css")" rel="stylesheet" />
+        @{
+            if (Model.Bool("IsLanding", false))
+            {
+                <link href="@Context.GetLink("/assets/css/scribbler-landing.css")" rel="stylesheet" />
+            }
+            else
+            {
+                <link href="@Context.GetLink("/assets/css/scribbler-doc.css")" rel="stylesheet" />
+            }
+        }
+
+        <meta name="application-name" content="@Context.String(DocsKeys.Title)" />
+        <meta name="msapplication-tooltip" content="@Context.String(DocsKeys.Title)" />
+        <meta name="msapplication-starturl" content="@Context.GetLink("/")" />
+
+        <meta property="og:title" content="@PageTitle" />
+        @* <meta property="og:image" content="@Blog.Image" /> *@
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="@Context.GetLink(Model, true)" />
+        <!-- TODO: More social graph meta tags -->
+
+
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+                <script src="@Context.GetLink("/assets/js/html5shiv.js")"></script>
+                <script src="@Context.GetLink("/assets/js/respond.min.js")"></script>
+        <![endif]-->
+
+        @Html.Partial("_Scripts")
+    </head>
+    <body>
+        <nav>
+            <div class="logo"></div>
+            <div class="menu">
+                @Html.Partial("_Navbar")
+            </div>
+        </nav>
+
+        @{
+            if (Model.Bool("IsLanding", false))
+            {
+                @Html.Partial("_LandingHeader")
+            }
+        }
+
+        <div class="wrapper">
+            @{
+                if (!Model.Bool("NoSidebar", false))
+                {
+                    <!-- Left side column. contains the logo and sidebar -->
+                    <aside class="doc__nav">
+                        <section>
+                            @Html.Partial("_SidebarHeader")
+                            @RenderSection("Search", false)
+                            <ul>
+                                @{
+                                    if (IsSectionDefined("Sidebar")) {
+                                        RenderSection("Sidebar");
+                                    }
+                                    else {
+                                        @Html.Partial("Sidebar/_ChildPages")
+                                    }
+                                }
+                            </ul>
+                            @Html.Partial("_SidebarFooter")
+                        </section>
+                    </aside>
+                }
+            }
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                @RenderBody()
+            </div>
+        </div>
+
+        @{
+            if (Model.Bool("IsLanding", false))
+            {
+                @Html.Partial("_LandingFooter")
+            }
+        }
+
+        <footer>
+            @Html.Partial("_Footer")
+        </footer>
+    </body>
+</html>

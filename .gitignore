@@ -1,3 +1,6 @@
 packages.xml
 build/
 packages/
+config.wyam.packages.xml
+config.wyam.hash
+config.wyam.dll

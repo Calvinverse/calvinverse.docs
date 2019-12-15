@@ -1,1 +1,0 @@
-The build category resources are explained here ..

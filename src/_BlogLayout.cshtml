@@ -1,0 +1,36 @@
+@{
+	Layout = "/_Master.cshtml";
+}
+
+@section Sidebar {
+    @if(Documents[Docs.BlogPosts].Any(x => x.ContainsKey(DocsKeys.Category)))
+    {
+        <li class="header"><h3>Categories</h3>
+            <ul>
+            @foreach(string category in Documents[Docs.BlogPosts]
+                .Select(x => x.String(DocsKeys.Category))
+                .Distinct()
+                .OrderBy(x => x))
+            {
+                string link = category.Replace(" ", "-").Replace("'", string.Empty);
+                string selected = Model.String(Keys.RelativeFilePath).StartsWith($"{Context.String(DocsKeys.BlogPath)}/{link}/") ? "selected" : null;
+                <li class="@selected"><a href="@Context.GetLink($"/{Context.String(DocsKeys.BlogPath)}/{link}")">@category</a></li>
+            }
+            </ul>
+        </li>
+    }
+
+    <li class="header"><h3>Archive</h3></li>
+    @foreach(DateTime published in Documents[Docs.BlogPosts]
+        .Select(x => x.Get<DateTime>(DocsKeys.Published))
+        .Select(x => new DateTime(x.Year, x.Month, 1))
+        .Distinct()
+        .OrderByDescending(x => x))
+    {
+        string link = published.ToString("yyyy/MM");
+        string selected = Model.String(Keys.RelativeFilePath).StartsWith($"{Context.String(DocsKeys.BlogPath)}/archive/{link}/") ? "selected" : null;
+        <li class="@selected"><a href="@Context.GetLink($"/{Context.String(DocsKeys.BlogPath)}/archive/{link}")">@(published.ToString("MMMM, yyyy"))</a></li>
+    }
+}
+
+@RenderBody()
