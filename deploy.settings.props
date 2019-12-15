@@ -604,11 +604,9 @@
                 Platform=$(Platform);
             </Properties>
         </DeployStepsToExecute>
-
-        Condition=" '$(IsMasterBranch)' == 'true' "
         -->
         <DeployStepsToExecute
-            Condition=" '$(BranchGitExpected)' == 'master' "
+            Condition=" '$(IsMasterBranch)' == 'true' "
             Include="$(DeployStepsPushToGitBranch)">
             <ExecuteAfter></ExecuteAfter>
             <ExecuteBefore></ExecuteBefore>
