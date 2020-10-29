@@ -37,3 +37,13 @@ when the resource first boots (for VMs), or environment variables are set
 how to connect to the Consul cluster in the environment. Once connected
 all other configuration values can be obtained from the Consul K-V or the
 Vault secret store
+
+- Configurations are stored in different repositories
+  - General configurations, mostly setting information for the different resources. While the environment
+    is running will be stored in the Consul key-value store. The original values are stored in the
+    [Calvinverse.Infrastructure]() repository
+  - Dashboards
+  - Log filters
+  - Elasticsearch index templates
+- Ideally builds will be configured so that a change to the configuration will be tested and pushed
+  to a suitable test environment
