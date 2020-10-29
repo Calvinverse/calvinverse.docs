@@ -45,4 +45,11 @@ Calvinverse creates environments by using [Consul](https://consul.io) to create 
 using the [datacenter](https://www.consul.io/docs/glossary.html#datacenter) concept to define an
 environment. All services in a datacenter can communicate with each other either by using Consul as
 the [DNS](https://www.consul.io/docs/agent/dns.html) resolver or by using more advanced
-[Connect](https://www.consul.io/docs/connect/index.html) feature
+[Connect](https://www.consul.io/docs/connect/index.html) feature. This means you can have multiple
+environments, e.g. production and test, running on the same hardware in the same physical network
+(or even the same VLAN). Inside the environment the instances can refer to each other based
+on the consul name, e.g. `active.build.service.mynetwork`, assuming `mynetwork` is your consul
+domain name, and calls will only got to the instance that is in that environment.
+
+Note that if you need strict separation then you'll need to use the standard network separation
+methods to achieve your goal.
