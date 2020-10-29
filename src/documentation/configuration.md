@@ -31,7 +31,7 @@ configuration when the resource is first initialized, i.e. the initial
 configuration. It's this initial configuration that is tricky. For containers
 you can pass an environment variable, for VMs you can use an ISO file
 
-In calvinverse all resources assume that an ISO file (i.e. a CD / DVD) is mounted
+In Calvinverse all resources assume that an ISO file (i.e. a CD / DVD) is mounted
 when the resource first boots (for VMs), or environment variables are set
 (for containers). These initial configurations only contain information on
 how to connect to the Consul cluster in the environment. Once connected

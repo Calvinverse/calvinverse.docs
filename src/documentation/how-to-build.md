@@ -37,7 +37,7 @@ Once all the tools are installed you can start the build process with the follow
   - Invoke the build generally with `msbuild entrypoint.msbuild /t:build` with additional properties
   - Should drop outputs in `build/deploy`. Generally a zip file with the Hyper-V files
   - Requirements
-    - nuget.exe on the commandline
+    - nuget.exe on the command line
     - Hyper-V installed and the user is a Hyper-V admin
     - Hyper-V switch with the correct name
 - How to test
