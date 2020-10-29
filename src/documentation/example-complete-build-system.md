@@ -26,6 +26,7 @@ Notes:
   information read the clustering guides for the respective applications
 * It is wise to deploy the resources to different VM hosts so that a failure in one of the hosts
   does not lead to failures in the cluster
+  * But they have to be in the same LAN otherwise latency starts creating issues.
 
 ## Environments
 

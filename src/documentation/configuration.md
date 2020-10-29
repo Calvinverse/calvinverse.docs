@@ -31,9 +31,19 @@ configuration when the resource is first initialized, i.e. the initial
 configuration. It's this initial configuration that is tricky. For containers
 you can pass an environment variable, for VMs you can use an ISO file
 
-In calvinverse all resources assume that an ISO file (i.e. a CD / DVD) is mounted
+In Calvinverse all resources assume that an ISO file (i.e. a CD / DVD) is mounted
 when the resource first boots (for VMs), or environment variables are set
 (for containers). These initial configurations only contain information on
 how to connect to the Consul cluster in the environment. Once connected
 all other configuration values can be obtained from the Consul K-V or the
 Vault secret store
+
+- Configurations are stored in different repositories
+  - General configurations, mostly setting information for the different resources. While the environment
+    is running will be stored in the Consul key-value store. The original values are stored in the
+    [Calvinverse.Infrastructure]() repository
+  - Dashboards
+  - Log filters
+  - Elasticsearch index templates
+- Ideally builds will be configured so that a change to the configuration will be tested and pushed
+  to a suitable test environment
