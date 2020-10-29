@@ -32,19 +32,49 @@ virtual machine image or a [Docker](https://www.docker.com/) container. However 
 virtualization platform is desired changes can be made to the [Packer](https://packer.io) configurations
 relatively easy to change the type of images that are generated.
 
+## Design principles
+
+The resources and configurations in Calvinverse have been developed using the following design principles:
+
+- The original code for all resources and configurations is stored in source control. This includes
+  [filters](https://github.com/Calvinverse/calvinverse.logs.filters) for
+  [Logstash](https://github.com/Calvinverse/resource.logs.processor),
+  [dashboards and data sources](https://github.com/Calvinverse/calvinverse.metrics.dashboards)
+  for [Grafana](https://github.com/Calvinverse/resource.metrics.dashboard)
+  and general [configuration settings](https://github.com/Calvinverse/calvinverse.configuration)
+  for everything else. By storing all the information in source control it is always possible to see
+  what changes were made and to roll-back or roll-forward in case of issues.
+- All resources and configurations have a version.
+  - Note that currently the items in the Consul key-value store don't have a version. Work to add versions
+    to the items in the key-value store is planned.
+- Secrets are the exception to the first design principle. They are never stored in source control
+  and are handled by [Vault](https://github.com/Calvinverse/resource.secrets).
+  Resources that need secrets will obtain them from Vault, either through direct interaction or
+  via [Consul-Template](https://github.com/hashicorp/consul-template).
+- Direct access to any of the resources should never be required. This is enabled by streaming logs
+  and metrics from all resources to a central log store and a central metrics store.
+  - Note that you can currently log into the resources through SSH or WinRM if this is absolutely
+    required.
+- No changes to running resources should be made (immutable infrastructure). Required changes will
+  be made to the repository, a new image will be made and once tested it will replace the existing
+  production instances.
+- Consul is used to define a local DNS domain to contain environments. i.e. the
+  [environment](environments.html) a resource belongs to is determined by the consul master instances
+  it connects to.
+
 ## Available resources
 
 The Calvinverse organisation contains a number of repositories with [resources](../resources) that
 can be used to create a build system. These resources fall into one of the following groups:
 
-* [Base resources](../resources/category-base.html) - Resources on which other resources are based.
+- [Base resources](../resources/category-base.html) - Resources on which other resources are based.
   For instance there are resources that define a VM with just an operating system installed and
   prepared. These base VM images will then be used by other resources as their base, thereby reducing
   the build times for these more advanced resources because the base resource provides an up to date
   operating system install and all the common applications.
-* [Build resources](../resources/category-build.html) - Resources which define parts of the build
+- [Build resources](../resources/category-build.html) - Resources which define parts of the build
   infrastructure, e.g. the build controller or build executors.
-* [Supporting resources](../resources/category-support.html) - Resources which define parts of the
+- [Supporting resources](../resources/category-support.html) - Resources which define parts of the
   infrastructure which support the work of the build resources, e.g. artefact servers or logging
   and metrics services.
 
