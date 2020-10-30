@@ -6,7 +6,7 @@
   margin: 0em auto 4em auto;
   padding: 2rem 2rem 4rem 2rem;
   text-align: center;
-  width: 80%;
+  width: 90%;
 }
 
 .hero__title {
@@ -72,7 +72,7 @@
   flex: 1 0 auto;
   margin: 0 auto;
   padding: 2em;
-  width: 80%;
+  width: 90%;
 }
 
 .changelog__item {
