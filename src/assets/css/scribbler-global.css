@@ -323,10 +323,9 @@ table td:first-child {
 .wrapper {
   background-color: var(--wrapper-bg-color);
   border-radius: 10px 10px 0px 0px;
-  flex: 1 0 auto;
   margin: 0 auto;
   padding: 2em;
-  width: 80%;
+  width: 90%;
 }
 
 #footer {
@@ -338,7 +337,7 @@ table td:first-child {
   margin: 0 auto 0 auto;
   overflow: hidden;
   padding: 2em;
-  width: 80%
+  width: 90%
 }
 
 #footer h2 {
