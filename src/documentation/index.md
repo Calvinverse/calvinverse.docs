@@ -3,6 +3,8 @@ ShowInNavbar: true
 Order: 2500
 ---
 
+# Documentation
+
 The [Calvinverse](https://github.com/Calvinverse) organization provides a number of repositories that
 contain all the necessary code to create a [build environment](https://en.wikipedia.org/wiki/Build_automation)
 based on the idea of [immutable infrastructure](https://martinfowler.com/bliki/ImmutableServer.html). In
