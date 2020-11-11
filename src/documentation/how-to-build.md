@@ -2,26 +2,46 @@ Title: How to build
 ShowInNavbar: false
 ---
 
-**Status: Thoughts only, needs proper formatting**
+# Building the Calvinverse resources
 
-[Issue #9](https://github.com/Calvinverse/calvinverse.docs/issues/8)
+The repositories in the [Calvinverse organization](https://github.com/Calvinverse) are divided into
+image repositories, containing code for the creation of VM and Docker images, and configuration
+repositories, which contain some form of configuration information. The configuration repositories
+either create ZIP and ISO artefacts or they contain scripts that allow pushing data to the
+Consul key-value store in the environment.
 
-# How to build the resources
+In order to execute builds that create artefacts of some kind you will for the very least need:
 
-To create one of the resources
+- The [NuGet command line executable](https://www.nuget.org/downloads) should be on the PATH.
+- The [Git](https://git-scm.com/) executable should be on the PATH
+- [MsBuild](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild?view=vs-2019) needs to be
+  installed. This needs to be at least MsBuild 15.0 but higher should be compatible.
 
-* The [NuGet command line executable]() should be on the PATH
-* The [Git]() executable should be on the PATH
-* MsBuild needs to be installed. Needs to be at least MsBuild 15 but higher is compatible
-* Need to have a storage place for ISO's and the resource files
+Specific repository types may have additional demands on the environment they are build in. More details
+on these specific demands will be provided in the sections below.
 
-* Need a way to build things (i.e. a machine with a hypervisor)
-  * For Hyper-V you need to configure a virtual switch that allows the VMS to get to the internet
-    so that they can download all the required tooling. The name of this switch should be
-    given to packer via the configuration so that Packer can connect the VM to the correct switch
-  * If the VMS are on their own ethernet interface then you can run into the Packer bug
-* Using [Packer](https://packer.io) to create VMs. By default everything is configured to work
-  with Hyper-V, but the Packer configuration can be adjusted to use a different hypervisor
+## Building VM images
+
+Most of the resources in Calvinverse are VM images at the moment although there are a few repositories
+containing code for Docker containers. To create one of the resources you need to have the following
+applications on the machine you want to build on:
+
+
+
+
+
+* Build the base resources first
+
+
+
+
+ Work in progress to make them able to go
+  to Azure if necessary
+  - With some minor changes could also create images for AWS etc. Images are made using [Packer]() so
+    anything packer can create can be made
+
+There are currently two types of VM hypervisors supported, Hyper-V and Azure. Depending on
+for which you want to build some other things have to be available
 
 * Build the base resources first
 
@@ -29,7 +49,6 @@ To create one of the resources
 Once all the tools are installed you can start the build process with the following command line
 
     msbuild entrypoint.msbuild /t:build /P:IsoDirectory=<PATH_TO_THE_APPROPRIATE_ISO_FILE>
-
 
 
 - How to build
@@ -44,21 +63,41 @@ Once all the tools are installed you can start the build process with the follow
   - Smoke tests -> `msbuild entrypoint.msbuild /t:test` -> runs standard tests
   - Deploy into an environment, run tests
 
-  ## Repositories
+### Building Azure images
+
+Once all the tools are installed you can start the build process with the following command line
+
+    msbuild entrypoint.msbuild /t:build /P:IsoDirectory=<PATH_TO_THE_APPROPRIATE_ISO_FILE>
+
+### Building Hyper-V images
+
+- Image repositories. Contain code to create the VM images.
+
+- Need a machine which has Hyper-V installed
+- For Hyper-V you need to configure a virtual switch that allows the VMS to get to the internet
+  so that they can download all the required tooling. The name of this switch should be
+  given to packer via the configuration so that Packer can connect the VM to the correct switch
+- If the VMS are on their own ethernet interface then you can run into the Packer bug
+- Using [Packer](https://packer.io) to create VMs. By default everything is configured to work
+  with Hyper-V, but the Packer configuration can be adjusted to use a different hypervisor
+
+Once all the tools are installed you can start the build process with the following command line
+
+    msbuild entrypoint.msbuild /t:build /P:IsoDirectory=<PATH_TO_THE_APPROPRIATE_ISO_FILE>
+
+
+
+
+## Building containers
+
+
+
+## Building configurations
 
 - Configurations are stored in different repositories
   - General configurations, mostly setting information for the different resources. While the environment
     is running will be stored in the Consul key-value store. The original values are stored in the
-    [Calvinverse.Infrastructure]() repository
+    [Calvinverse.Configuration]() repository
   - Dashboards
   - Log filters
   - Elasticsearch index templates
-- Ideally builds will be configured so that a change to the configuration will be tested and pushed
-  to a suitable test environment
-- Image repositories. Contain code to create the VM images. Work in progress to make them able to go
-  to Azure if necessary
-  - With some minor changes could also create images for AWS etc. Images are made using [Packer]() so
-    anything packer can create can be made
-
- ... More details on how to build things go here ...
-
