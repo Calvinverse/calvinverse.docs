@@ -57,11 +57,11 @@ Additionally for server nodes the following information is expected
 * [server](https://www.consul.io/docs/agent/options.html#_server)
 
 Finally the ISO also contains the
-[zone configuration file](https://github.com/Calvinverse/calvinverse.infrastructure/blob/master/config/iso/shared/unbound/unbound_zones.conf)
+[zone configuration file](https://github.com/Calvinverse/calvinverse.configuration/blob/master/config/iso/shared/unbound/unbound_zones.conf)
 for [unbound](https://nlnetlabs.nl/projects/unbound/about/), which is the caching DNS resolver which
 is installed on all resources to handle DNS requests.
 
-The [Calvinverse.Infrastructure](https://github.com/Calvinverse/calvinverse.infrastructure/tree/master/config/iso)
+The [Calvinverse.Configuration](https://github.com/Calvinverse/calvinverse.configuration/tree/master/config/iso)
 repository provide an example of the different ISO files that will be made. From this repository
 three different ISO files will be created
 
@@ -77,7 +77,7 @@ three different ISO files will be created
 the VM has connected to the Consul environment allows easily changing the configurations and it
 disconnects the configuration of the services from the provisioning of the resource.
 
-Again the [Calvinverse.Infrastructure](https://github.com/Calvinverse/calvinverse.infrastructure/tree/master/config/kv)
+Again the [Calvinverse.Configuration](https://github.com/Calvinverse/calvinverse.configuration/tree/master/config/kv)
 repository provides examples of the different configuration values that need to be set.
 For resource specific configuration information the readme for the different resource
 repositories provides the required information.
