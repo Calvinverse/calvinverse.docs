@@ -24,7 +24,7 @@ then deployed.
   need to be executed. Each additional action adds complexity to the system and requires implementation,
   testing and maintenance.
 * Related to the number of products is the different types of programming languages that are used
-  in the pipeline e.g. .NET, javascript, java, go etc.. The more different languages need to be
+  in the pipeline e.g. .NET, JavaScript, Java, go etc.. The more different languages need to be
   supported the more complex the system becomes, because the build agents need to be able to
   execute builds for the different languages, different package managers are required and potentially
   build agents on different operating systems need to be provided, e.g. when building iOS applications.
@@ -51,11 +51,11 @@ needed. For these resources the following factors are important to consider:
   Vault instance in an environment, however for resiliency it is recommended to have multiple
   instances.
 * Is it important to get diagnostics from the different resources in the environment, i.e.
-  [logs](../resources/category-diagnostics-logs.html) and [metrics](../resources/category-diagnostics-metrics.html).
+  [logs](../resources/category-diagnostics-logs.html) and [metrics](../resources/category-diagnostics-metrics.html)?
   If the environment is small it might not be, however if the environment is large it most likely
   will be.
 * Is the environment expected to have some sort of message processing, e.g. for change notifications
-  etc.. If so then it may be useful to have a message queue to improve resiliency. By default
+  etc.? If so then it may be useful to have a message queue to improve resiliency. By default
   the Calvinverse resources use [RabbitMQ](https://www.rabbitmq.com/) for queueing of change
   notifications for the build controller as well as using RabbitMQ as a queue for log messages
   before they are processed and stored.
@@ -90,7 +90,7 @@ help of the meta build environment.
 To create any environment the first thing to do is to create the resources. If there is no
 build environment to create these then you will have to configure a developer machine with
 the [appropriate tooling](how-to-build.html).
-The Calvinverse resources are by default configured to be built on Hyper-V but the [Packer](https://packer.io)
+The Calvinverse resources are  configured to be built on Azure or Hyper-V but the [Packer](https://packer.io)
 configuration files can easily be updated to work with other virtualization technologies. So in
 order to build the resources a machine should be configured with the selected virtualization
 system.
@@ -101,7 +101,7 @@ build engine via the [nBuildKit](https://github.com/nbuildkit/nBuildKit.MsBuild)
 [ops-tools-build](https://github.com/ops-resource/ops-tools-build) libraries which means that
 MsBuild should also be installed on the machine.
 
-Finally because the Calvinverse resources are created via [Chef](https://www.chef.io/) scripts it is
+Finally because most of the Calvinverse resources are created via [Chef](https://www.chef.io/) scripts it is
 required to install [Ruby](https://www.ruby-lang.org/en/) and [some Ruby gems](how-to-build.html) so
 that the [Chefspec](https://docs.chef.io/chefspec.html) tests can be executed. It is not necessary to
 install Chef itself given that all resources are created by installing Chef on the resource and
@@ -113,11 +113,11 @@ tools are installed the build process can be [started](how-to-build.html).
 The first resources to build are the [base resources](../resources/category-base.html), i.e. the
 resources that form the base for all other resources. There are three base resources:
 
-* [base.linux](https://github.com/Calvinverse/base.linux) - The base for Linux based resources
+* [base.vm.linux](https://github.com/Calvinverse/base.vm.linux) - The base for Linux based resources
   on a virtual machine.
-* [base.windows](https://github.com/Calvinverse/base.windows) - The base for Windows based resources
+* [base.vm.windows](https://github.com/Calvinverse/base.vm.windows) - The base for Windows based resources
   on a virtual machine.
-* [resource.container.linux.consul](https://github.com/Calvinverse/resource.container.linux.consul) -
+* [base.container.linux](https://github.com/Calvinverse/base.container.linux) -
   The base for Linux based resources in a [Docker](https://docker.io) container.
 
 Obviously you only need to build the base resources which are required for your environment. If you
@@ -233,11 +233,11 @@ First deploy all the supporting services and make sure they are running correctl
   resource. Start the VMs and wait for the Vault service to show up in the Consul cluster. Once the
   service is connected it can be [initialized](https://www.vaultproject.io/docs/commands/operator/init.html).
 * After creating and initializing the Vault resources we can [unseal](https://www.vaultproject.io/docs/concepts/seal.html)
-  the services and then set all the [mounts](https://www.vaultproject.io/docs/secrets/),
+  the services and then set all the [mounts](https://www.vaultproject.io/docs/secrets/) and
   [policies](https://www.vaultproject.io/docs/concepts/policies.html).
 * Deploy the metrics resources in the following order:
   * Deploy the InfluxDb database server by deploying one instance of the
-  [resource.metrics.storage](https://github.com/Calvinverse/resource.metrics.storage) resource.
+    [resource.metrics.storage](https://github.com/Calvinverse/resource.metrics.storage) resource.
   * Deploy the Grafana service by deploying one instance of the
     [resource.metrics.dashboard](https://github.com/Calvinverse/resource.metrics.dashboard) resource.
     Once the service is up an running you can connect to it by browsing to
@@ -256,7 +256,7 @@ First deploy all the supporting services and make sure they are running correctl
 
 Once the supporting services have been deployed then the build resources can be deployed.
 
-* Deploy once instance of the Jenkins controller by deploying an instance of the
+* Deploy one instance of the Jenkins controller by deploying an instance of the
   [resource.build.master](https://github.com/Calvinverse/resource.build.master) resource. Once
   the instance is running the Jenkins service will start and can be reached by browsing to
   `http://<PROXY_IP_ADDRESS>/builds`
