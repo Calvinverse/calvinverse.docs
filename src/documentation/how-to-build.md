@@ -193,10 +193,26 @@ Tags for the Docker containers can be specified in the `docker - pack` section o
 
 ## Building configurations
 
-- Configurations are stored in different repositories
-  - General configurations, mostly setting information for the different resources. While the environment
-    is running will be stored in the Consul key-value store. The original values are stored in the
-    [Calvinverse.Configuration]() repository
-  - Dashboards
-  - Log filters
-  - Elasticsearch index templates
+The final set of repositories which may need to be build are the configuration repositories. When using Hyper-V as
+the hypervisor you will need to create a set of ISO files which contain the
+[initial provisioning files](setup.html). These files can be found in the
+[Calvinverse.Configuration](https://github.com/Calvinverse/calvinverse.configuration/tree/master/config/iso) repository.
+In addition this repository also stores
+
+- The standard [secret engines](https://www.vaultproject.io/docs/secrets/index.html) and
+  [policies](https://www.vaultproject.io/docs/concepts/policies.html) for [vault](https://vaultproject.io).
+- A documentation file that describes which [RabbitMQ](https://www.rabbitmq.com)
+  [vhosts](https://www.rabbitmq.com/vhosts.html) and [users](https://www.rabbitmq.com/access-control.html) should
+  be created.
+- A documentation file that describes which users need to be created for InfluxDb.
+- Examples and default values for the Consul Key-Value entries that are required.
+
+The other configuration repositories store
+
+- The [dashboards and datasources](https://github.com/Calvinverse/calvinverse.metrics.dashboards) for Grafana
+- The [log filters](https://github.com/Calvinverse/calvinverse.logs.filters) which are used by Logstash to process
+  the logs that are created by all the different resources.
+
+The configurations in these repositories can be applied to an environment by pushing the configuration files up to the
+Consul Key-Value store. These can be pushed up by using the `Set-ConsulKV.ps1` script in the
+[Calvinverse.Configuration](https://github.com/Calvinverse/calvinverse.configuration) repository.
