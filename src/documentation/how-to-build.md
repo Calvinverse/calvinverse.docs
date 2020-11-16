@@ -23,7 +23,7 @@ on these specific demands will be provided in the sections below.
 
 ## Building VM images
 
-Most of the resources in Calvinverse are VM images at the moment although there are a few repositories
+Most of the resources in Calvinverse are VM images although there are a few repositories
 containing code for Docker containers. There are currently two types of VM hypervisors supported,
 [Azure](https://en.wikipedia.org/wiki/Microsoft_Azure) and [Hyper-V](https://en.wikipedia.org/wiki/Hyper-V).
 Since images are created with [Packer](https://packer.io) it would be relatively easy to create
