@@ -194,7 +194,9 @@ nav {
   background-color: var(--bg-color);
   display: grid;
   grid-template-columns: 70px auto;
+  margin: 0 auto;
   padding: 2em;
+  width: 70%;
 }
 
 /** MENU */
@@ -204,7 +206,7 @@ nav {
   text-align: right;
   overflow: hidden;
   list-style: none;
-  padding: 0 10% 0 0;
+  padding: 0 0 0 0;
 }
 
 .menu ul {
@@ -325,7 +327,7 @@ table td:first-child {
   border-radius: 10px 10px 0px 0px;
   margin: 0 auto;
   padding: 2em;
-  width: 90%;
+  width: 70%;
 }
 
 #footer {
@@ -337,7 +339,7 @@ table td:first-child {
   margin: 0 auto 0 auto;
   overflow: hidden;
   padding: 2em;
-  width: 90%
+  width: 70%
 }
 
 #footer h2 {
