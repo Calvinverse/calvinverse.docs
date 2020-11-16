@@ -1,5 +1,8 @@
+Title: Example - A complete environment
 ShowInSidebar: false
 ---
+
+# Example - A complete environment
 
 **Status: Thoughts only, needs proper formatting**
 

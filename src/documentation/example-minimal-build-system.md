@@ -1,9 +1,11 @@
+Title: Examples - A minimal environment
 ShowInSidebar: false
 ---
 
+# Example - A minimal environment
+
 **Status: Thoughts only, needs proper formatting**
 
-# Minimal environment
 
 * 1 Consul host
 * 1 Vault host
