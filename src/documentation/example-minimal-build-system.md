@@ -1,5 +1,5 @@
 Title: Examples - A minimal environment
-ShowInSidebar: false
+ShowInNavbar: false
 ---
 
 # Example - A minimal environment

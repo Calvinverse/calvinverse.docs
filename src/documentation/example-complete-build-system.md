@@ -1,5 +1,5 @@
 Title: Example - A complete environment
-ShowInSidebar: false
+ShowInNavbar: false
 ---
 
 # Example - A complete environment
