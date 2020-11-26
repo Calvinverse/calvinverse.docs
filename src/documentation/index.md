@@ -29,8 +29,9 @@ or small build system which may consist of only a few machines, or they may be c
 more [complicated environment](example-complete-build-system.html) which consists of many different
 services for those cases where the build workflow is more complex.
 
-The code in the repositories will either create a [Hyper-V](https://en.wikipedia.org/wiki/Hyper-V)
-virtual machine image or a [Docker](https://www.docker.com/) container. However a different
+The code in the repositories will either create an [Azure]() virtual machine, a
+[Hyper-V](https://en.wikipedia.org/wiki/Hyper-V) virtual machine image or a
+[Docker](https://www.docker.com/) container. However a different
 virtualization platform is desired changes can be made to the [Packer](https://packer.io) configurations
 relatively easy to change the type of images that are generated.
 
@@ -88,5 +89,5 @@ In order to [get started](getting-started.html) creating a build system the firs
 is to [create](how-to-build.html) the resources that will make up the build system. Once the
 resource images have been created one needs to decide on the way the resources are
 going to be [assembled](setup.html) into a functioning build environment. Part of this process
-involves storing the [global configurations](configuration.html) for all the resources in a
+involves storing the global configurations for all the resources in a
 sensible way.

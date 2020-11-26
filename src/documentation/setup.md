@@ -6,7 +6,22 @@ ShowInNavbar: false
 
 An [environment](environments.html) is defined by the [Consul](https://consul.io) server instances,
 all the nodes that are connected to the server instances and the configurations of the nodes and
-services.
+services. In order to create a new environment the different resources need to be created and
+configured. Part of the configuration options are encoded in the different
+[resources](../resources), however not all options can be provided in the original source because
+some settings depend on the way the infrastructure is assembled. These remaining values are
+provided in three different stages.
+
+* Configure [Consul](https://consul.io) so that all the nodes can find each other and form the
+  environment. This configuration step normally occurs while the resources in the environment are
+  being created, starting with the Consul server nodes.
+* Configuration of the other services is achieved by putting the configuration values in the
+  [Consul Key-Value store](https://www.consul.io/docs/agent/kv.html). From there
+  [Consul-Template](https://github.com/hashicorp/consul-template) will read the values and generate
+  the appropriate configuration files. Using this approach enables easily changing the configurations
+  and it disconnects the configuration of the services from the provisioning of the resource.
+* Provide the resources with their initial secret so that they can access the
+  [Vault](https://vaultproject.io) server in order to get further secrets.
 
 ## Environment core
 
@@ -42,9 +57,23 @@ wants to join the cluster. Several options exist:
 
 ## Initial provisioning
 
-In order to get the initial configuration into a resource instance Calvinverse assumes that for
-VMs an ISO image is attached to the VM when it is initially created. This ISO should contain files
-with the following information for Consul
+In order to get the initial configuration into a resource instance Calvinverse has different
+methods depending on the hypervisor that is being used. The currently available configuration
+methods are applicable for either [Azure](https://en.wikipedia.org/wiki/Microsoft_Azure)
+or [Hyper-V](https://en.wikipedia.org/wiki/Hyper-V).
+
+### Azure
+
+Provisioning of resources for Azure is done with [Terraform](https://www.terraform.io/). Calvinverse
+provides a number of Terraform configurations to provision the different resources in
+[Azure](https://github.com/Calvinverse?q=infrastructure.azure&type=&language=). While being provisioned
+these resources will also be provided with the Consul configuration so that an environment
+can be formed.
+
+### Hyper-V
+
+When Hyper-V is used initial provisioning is done via an ISO image attached to the VM. This ISO
+should contain files with the following information for Consul
 
 * [datacenter](https://www.consul.io/docs/agent/options.html#_datacenter)
 * [domain](https://www.consul.io/docs/agent/options.html#_domain)
@@ -71,7 +100,7 @@ three different ISO files will be created
 
 ## Configuration of services
 
-[Configurations](configuration.html) for all other services will be obtained from the
+Configurations for all other services will be obtained from the
 [Consul Key-Value store](https://www.consul.io/docs/agent/kv.html) via
 [Consul-Template](https://github.com/hashicorp/consul-template). Getting the configurations after
 the VM has connected to the Consul environment allows easily changing the configurations and it
@@ -82,10 +111,116 @@ repository provides examples of the different configuration values that need to 
 For resource specific configuration information the readme for the different resource
 repositories provides the required information.
 
-## Resources
+More key-value information for more specific applications can be found in the following repositories:
+
+* [calvinverse.metrics.dashboards](https://github.com/Calvinverse/calvinverse.metrics.dashboards) -
+  Contains the [dashboards](https://grafana.com/docs/grafana/latest/administration/provisioning/#dashboards)
+  and [data sources](https://grafana.com/docs/grafana/latest/administration/provisioning/#data-sources)
+  for [Grafana](https://grafana.com)
+* [calvinverse.logs.filters](https://github.com/Calvinverse/calvinverse.logs.filters) - Contains
+  [configuration files](https://www.elastic.co/guide/en/logstash/current/config-setting-files.html)
+  for the log processing application [Logstash](https://www.elastic.co/logstash).
+
+## Resource creation
 
 With the provisioning and configuration information collected the final part of the setup is to
-create instances of the desired resources in the correct order.
+create instances of the desired resources in the correct order
+
+### Azure
+
+1) If you want to connect to the different resources you can create a
+   [Hub and Spoke](https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/hybrid-networking/hub-spoke)
+   network topology. An example of the [Hub network](https://github.com/pvandervelde/infrastructure.azure.core.network.hub)
+   is available.
+1) Create the [spoke](https://github.com/Calvinverse/infrastructure.azure.network.spoke) network
+   to which all the resources will be connected.
+1) Once the spoke network has been created you can attach the
+   [Consul servers](https://github.com/Calvinverse/resource.hashi.server) to this virtual network. The
+   [terraform configuration](https://github.com/Calvinverse/infrastructure.azure.core.servicediscovery)
+   creates a resource group with the selected number of Consul instances in it. This terraform
+   configuration will also create an instance of the [Consul UI](https://github.com/Calvinverse/resource.hashi.ui)
+   so that you get some insight into the workings of the Consul cluster.
+1) Once the cluster is ready to work the next step is to upload K-V values. These can be pushed
+   to the cluster via the [KV store endpoints](https://www.consul.io/api/kv.html#create-update-key)
+   that Consul provides.
+1) With the Consul servers up and running and the configuration values set in the KV store the next
+   step is to create the [reverse proxy](https://github.com/Calvinverse/resource.proxy.edge) instances
+   that allow services to be easily reached outside the environment. Once again a set of
+   [Terraform configuration files](https://github.com/Calvinverse/infrastructure.azure.core.ingress)
+   is available which creates a Virtual Machine Scale Set behind an Azure Load Balancer. Once the
+   provisioning is done you can find the UI for Fabio on `http://<ENVIRONMENT_DNS_NAME>:9998`
+1) Once the Consul server and the Consul management services are available the supporting services
+   can be added to the environment. Supporting services that are optional are marked as such. If you
+   have decided to not include those then you can skip those steps.
+    1) Create a [cluster](https://github.com/Calvinverse/infrastructure.azure.core.events) of the
+       [RabbitMQ](https://github.com/Calvinverse/resource.queue) resource. After the instances have
+       been provisioned you can reach the management page via `http://<ENVIRONMENT_DNS_NAME>/services/queue`.
+    1) Once the RabbitMQ cluster is up you can create the necessary [vhosts](https://www.rabbitmq.com/vhosts.html)
+       and [users](https://www.rabbitmq.com/access-control.html). The
+       [Calvinverse.Infrastructure repository](https://github.com/Calvinverse/calvinverse.infrastructure/blob/master/src/rabbitmq/create.md)
+       provides a description of the minimum vhosts, users and queues that should be created.
+       Make sure to create at least an administrator level user which will be used by
+       [Vault](https://vaultproject.io) to create temporary users in RabbitMQ for services to
+       write to exchanges or read from queues in RabbitMQ.
+    1) Create a [cluster](https://github.com/Calvinverse/infrastructure.azure.core.secrets)
+       of the [Vault](https://github.com/Calvinverse/resource.secrets) resource.
+    1) Once the Vault instances have been provisioned you can
+       [initialize](https://www.vaultproject.io/docs/commands/operator/init.html) one instance. This
+       will provide a number of [keys](https://www.vaultproject.io/docs/concepts/seal.html) of which
+       a subset will be required to unseal the Vault instance. Note that initialization only needs
+       to be done on a single node.
+    1) Once the vault instances are initialized and unsealed you can mount
+       [secret engines](https://www.vaultproject.io/docs/secrets/index.html) and set
+       [policies](https://www.vaultproject.io/docs/concepts/policies.html) which describe how the
+       secret engines should be used. The minimum secret engines that should be mounted is the
+       [RabbitMQ](https://www.vaultproject.io/docs/secrets/rabbitmq/index.html) secret engine. Additionally
+       at least one authentication method should be configured for authenticating users. The
+       [Calvinverse.Infrastructure repository](https://github.com/Calvinverse/calvinverse.infrastructure/tree/master/src/vault)
+       provides scripts and configuration files to mount both the RabbitMQ secret engine and the
+       [LDAP](https://www.vaultproject.io/docs/auth/ldap.html) authentication method for user authentication.
+1) Next deploy the [metrics instances](https://github.com/Calvinverse/infrastructure.azure.observability.metrics)
+      so that you can get information about the status of all your instances. The Terraform scripts will
+      deploy the following instances
+   1) An instance of the [InfluxDb](https://github.com/Calvinverse/resource.metrics.storage)
+      resource. Since the open source version doesn't allow H/A it is sensible to only deploy one
+      instance.Once the instance has been provisioned and connected to the Consul cluster metrics
+      should start streaming into the database.
+   1) An instance of the [Grafana](https://github.com/Calvinverse/resource.metrics.dashboard)
+      resource. After provisioning the instance you can reach it on
+      `http://<ENVIRONMENT_DNS_NAME>/dashboards/metrics`. Initially this instance will not have any
+      dashboards. You can either make those manually or import them by pushing the
+      [dashboard definitions](https://github.com/Calvinverse/calvinverse.metrics.dashboards) to the
+      Consul K-V from where they will automatically be provisioned with Grafana.
+   1) Finally it optionally deploys an instance of [Kapacitor and Chronograf](https://github.com/Calvinverse/resource.metrics.monitoring).
+      These services provide alerting and a different way of displaying metrics information.
+1) The last of the supporting services are the
+   [document and log processing services](https://github.com/Calvinverse/infrastructure.azure.observability.logs).
+   These are used to process, store and display logs and other documents which are generated in the environment.
+   The Terraform scripts will deploy the following instances:
+    1) A cluster of [Elasticsearch](https://github.com/Calvinverse/resource.documents.storage)
+       instances. As with the other H/A resources you will need an odd number of instances with three
+       being the minimum.
+    1) A single instance of the [Kibana](https://github.com/Calvinverse/resource.documents.dashboard)
+       resource. Once provisioning is completed you can find it on
+       `http://<ENVIRONMENT_DNS_NAME>/dashboards/documents`. The
+       [monitoring](https://www.elastic.co/what-is/elasticsearch-monitoring) tab in Kibana provides
+       information about your Elasticsearch cluster.
+    1) A cluster of [Logstash](https://github.com/Calvinverse/resource.logs.processor)
+       instances. You can have as many of these instances as you need to process all your logs. Log
+       processing rules can be loaded into the Consul K-V from where they will be provided to the
+       Logstash instances. For an example have a look at the
+       [calvinverse.logs.filters](https://github.com/Calvinverse/calvinverse.logs.filters) repository.
+1) Finally the build instances can be added to the environment. The first instance that should be
+   added is that of the [Jenkins build controller](https://github.com/Calvinverse/resource.build.master).
+1) Once the build controller has been provisioned, one or more
+   [build agents](https://github.com/Calvinverse/resource.build.agent.windows) can be provisioned.
+   The agents will automatically connect to the build controller when they are provided with an
+   authorization to connect to Vault, from where they will get the username and password to
+   connect to the build controller.
+1) The final resource that can optionally be added is the [Nexus](https://github.com/Calvinverse/resource.artefacts)
+   resource which stores artefacts, packages and Docker image layers.
+
+### Hyper-V
 
 1) Determine which method of discovery is going to be used for Consul nodes to discover the server
    nodes, be that via IP address, DNS name or some other discovery method. If you plan to use

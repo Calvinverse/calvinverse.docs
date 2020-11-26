@@ -1,31 +1,26 @@
-Title: Examples - A minimal environment
-ShowInSidebar: false
+Title: Example - A minimal environment
+ShowInNavbar: false
 ---
 
 # Example - A minimal environment
 
-**Status: Thoughts only, needs proper formatting**
+A minimal build environment provides the ability to build artefacts with
+the minimum number of compute resources used. Note that there will be no redundancy
+in an environment like this due to the limited number of resources. It is recommended
+that this environment set up is not used as a production environment.
 
+* [Consul server instance](https://github.com/Calvinverse/resource.hashi.server) - One instance
+  is possible although it is not recommended for a production environment due to the fact
+  that a failure of this instance will cause data loss.
+* [Reverse proxy instance](https://github.com/Calvinverse/resource.proxy.edge)
+* [Vault instances](https://github.com/Calvinverse/resource.secrets)
+* [Jenkins build controller instances](https://github.com/Calvinverse/resource.build.master)
+* [Build agent instances](https://github.com/Calvinverse/resource.build.agent.windows) - As many as
+  required to be able to process the required number of builds
 
-* 1 Consul host
-* 1 Vault host
-* 1 Jenkins master
-* 1 Build agent
+Optionally you may want
 
-Additionaly you may want
+* [Nexus instances](https://github.com/Calvinverse/resource.artefacts)
 
-* 1 artefact server
-
-Note that there is no redundancy in this environment so failure of any of the machines
-will break the environment.
-
-## Environments
-
-- Only one environment with a minimum of 4 machines
-- Updates can be tricky because there's only one of each resource (especially for consul)
-
-## Repositories
-
-- Need repositories for the code you want to build
-- Ideally all configurations would be stored in one or more repositories as well but you could
-  apply them once manually. The only catch is that you then don't have backups
+Note that performing updates in this environment may be difficult because of the lack of
+redundancy.
