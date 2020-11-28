@@ -1,4 +1,4 @@
-Title: Pipeline resources
+Title: Pipeline
 ---
 
 # Pipeline reosurces

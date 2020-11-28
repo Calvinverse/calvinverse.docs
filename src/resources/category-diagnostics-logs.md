@@ -1,7 +1,7 @@
-Title: Observability resources
+Title: Observability - Logs
 ---
 
-# Observability resources
+# Observability - Logs
 
 **Status: To be done**
 

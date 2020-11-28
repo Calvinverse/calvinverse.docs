@@ -1,4 +1,4 @@
-Title: Support resources
+Title: Support
 ---
 
 # Support resources
