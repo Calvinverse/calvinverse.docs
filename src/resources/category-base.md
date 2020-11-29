@@ -3,10 +3,16 @@ Title: Base resources
 
 # Base resources
 
-The base resources are the resources on which all other resources are based. They contain the default
-applications and settings that are shared by all resources. In general these are:
+The base resources are the resources on which all other resources are based. Calvinverse
+provides base resources for virtual machines and for Docker containers. They contain the default
+applications and settings that are shared by all resources. These shared applications are:
 
 * [Consul](https://consul.io) - The service discovery and service mesh application
+* [Envoy](https://www.envoyproxy.io/) - The proxy used by Consul to create a
+  [service mesh](https://www.consul.io/docs/connect)
+* [Consul-Template](https://github.com/hashicorp/consul-template) - The application that generates
+  configuration files based on information from the [Consul K-V](https://www.consul.io/docs/dynamic-app-config/kv)
+  and [Vault](https://vaultproject.io)
 * [Telegraf](https://www.influxdata.com/time-series-platform/telegraf/) - The application that collects
   metrics and ships them to the metrics and alerting systems
 * A log forwarding application to ship logs from the resource to a central logging platform. On
@@ -18,9 +24,16 @@ applications and settings that are shared by all resources. In general these are
 * [Unbound](https://www.nlnetlabs.nl/projects/unbound/about/) - The recursive DNS resolver that
   coordinates DNS responses from multiple sources including Consul
 
+## VM base resources
 
+The following repositories are used to create base images for virtual machines
 
-* windows base
-* linux base
+* [base.vm.linux](https://github.com/Calvinverse/base.vm.linux) - Stores the scripts and configurations
+  for the creation of Linux base images
+* [base.vm.windows](https://github.com/Calvinverse/base.vm.windows) - Stores the scripts and configurations
+  for the creation of Windows base images
 
-* linux container base
+## Container base resources
+
+* [base.container.linux](https://github.com/Calvinverse/base.container.linux) - Stores the scripts and configurations
+  for the creation of a Linux base container
