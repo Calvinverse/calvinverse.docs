@@ -3,10 +3,11 @@ Title: Support
 
 # Support resources
 
-**Status: To be done**
+The support resources are the resources that perform a supporting role in the environment. Examples
+of this are [Vault](https://vaultproject.io) for secure secret processing or
+[RabbitMQ](https://www.rabbitmq.com/) for robust message queueing.
 
-
-Items in the support category provide supporting services (doh). They are:
+The following repositories provide capabilities that improve the ability of the environment
 
 
 * Consul cluster
@@ -14,8 +15,5 @@ Items in the support category provide supporting services (doh). They are:
 * Vault cluster
 * Goldfish for Vault UI
 
-* InfluxDb: Metrics and alerting
-* Grafana
-* Elasticsearch, Logstash, Kibana: Log processing and storage
 * RabbitMQ: Distributed queue
 * File storage
