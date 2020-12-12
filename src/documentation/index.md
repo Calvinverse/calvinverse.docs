@@ -17,12 +17,13 @@ resource can be deployed.
 The repositories describe resources different resources which are needed to create a fully functioning
 build [environment](environments.html), for instance:
 
-- A [build controller](../resources/build-controller.html): This resource collects build jobs
-  and sends them to the build executors which process the jobs.
-- A [build executor](../resources/build-agent.html): This resource processes a build job and executes
-  the actual build.
-- An [artefact repository](../resources/artefact-storage.html): This resource stores artefacts that
-  were created during a build and allows other builds or processes to consume these artefacts.
+- A [build controller](https://github.com/Calvinverse/resource.build.master): This resource collects
+  build jobs and sends them to the build executors which process the jobs.
+- A [build executor](https://github.com/Calvinverse/resource.build.agent.windows): This resource
+  processes a build job and executes the actual build.
+- An [artefact repository](https://github.com/Calvinverse/resource.artefacts): This resource stores
+  artefacts that were created during a build and allows other builds or processes to consume these
+  artefacts.
 
 The different resources can be combined into a [relatively simple](example-minimal-build-system.html)
 or small build system which may consist of only a few machines, or they may be combined into a far

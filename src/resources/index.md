@@ -18,5 +18,5 @@ different categories:
   for the environment.
 - [Supporting resources](category-support.html) - The supporting resources provide enhancements
   for the environment in which the pipeline resources are running. Examples of this kind of resource
-  are the observability resources, e.g. [logging](category-diagnostics-logs.html) and
-  [metrics](category-diagnostics-metrics.html).
+  are the observability resources, e.g. [logging](category-observability-logs.html) and
+  [metrics](category-observability-metrics.html).

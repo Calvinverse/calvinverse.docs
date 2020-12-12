@@ -51,7 +51,7 @@ needed. For these resources the following factors are important to consider:
   Vault instance in an environment, however for resiliency it is recommended to have multiple
   instances.
 * Is it important to get diagnostics from the different resources in the environment, i.e.
-  [logs](../resources/category-diagnostics-logs.html) and [metrics](../resources/category-diagnostics-metrics.html)?
+  [logs](../resources/category-observability-logs.html) and [metrics](../resources/category-observability-metrics.html)?
   If the environment is small it might not be, however if the environment is large it most likely
   will be.
 * Is the environment expected to have some sort of message processing, e.g. for change notifications
