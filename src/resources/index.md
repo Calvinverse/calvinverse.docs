@@ -14,5 +14,9 @@ different categories:
 
 - [Base resources](category-base.html) - These resources provide the base upon which
   other resources are based. In general base resources are not useful by themselves.
-- [Pipeline resources](category-pipeline.html) - These resources
-- [Supporting resources](category-support.html)
+- [Pipeline resources](category-pipeline.html) - These resources provide the build pipeline capabilities
+  for the environment.
+- [Supporting resources](category-support.html) - The supporting resources provide enhancements
+  for the environment in which the pipeline resources are running. Examples of this kind of resource
+  are the observability resources, e.g. [logging](category-observability-logs.html) and
+  [metrics](category-observability-metrics.html).
