@@ -1,31 +1,47 @@
 /* css variables*/
 :root {
-  --accent-color-dark: #B94B4C;
-  --accent-color-light: #FFE4E4;
-  --accent-color: #A60001;
-  --bg-color: #C5C5C9;
-  --copyright-color: #ededed;
-  --footer-bg-color: #696969;
-  --footer-color: #b0b0b0;
-  --hero-bg-color: #e3e3e3;
-  --code-bg-color: #F0E8E8;
-  --wrapper-bg-color: white;
-  --dark-gray-color: #444D56;
   --light-gray-color: #C6CBD1;
   --medium-gray-color: #959DA5;
-  --menu-a-color:#291D1E;
-  --menu-active-color:#FFFFFF;
-  --menu-ul-color:#291D1E;
-  --primary-color-light: #8E7474;
-  --primary-color: #291D1E;
+  --dark-gray-color: #444D56;
   --white-color: #FAFBFC;
+
+  --primary-color-dark1: #235689;
+  --primary-color-dark2: #1f4c7a;
+  --primary-color-dark3: #1b436b;
+  --primary-color-dark4: #17395b;
+  --primary-color-dark5: #13304c;
+  --primary-color-light1: #3c6fa3;
+  --primary-color-light2: #527fad;
+  --primary-color-light3: #678fb7;
+  --primary-color-light4: #7d9fc1;
+  --primary-color-light5: #93afcc;
+  --primary-color: #276099;
+  --secondary-color: #7c7b6f;
+
+  --accent-color-dark: #2196f3;
+  --accent-color-light: #2196f3;
+  --accent-color: #2196f3;
+  --copyright-color: #ededed;
+  --footer-color: #b0b0b0;
+
+  --menu-a-color:var(--white-color);
+  --menu-active-color:var(--white-color);
+  --menu-ul-color:var(--white-color);
+
+  --bg-color: #23231f;
+  --code-bg-color: #F0E8E8;
+  --copyright-bg-color: var(--primary-color-dark4);
+  --footer-bg-color: var(--primary-color-dark2);
+  --hero-bg-color: var(--secondary-color);
+  --nav-bg-color: var(--primary-color);
+  --wrapper-bg-color:var(--bg-color);
 }
 
 /* normalized */
 html, body {
   background-color: var(--bg-color);
-  font-family: 'Nunito Sans',
-  sans-serif;
+  color: var(--white-color);
+  font-family: 'Roboto', 'Nunito Sans', sans-serif;
   height: 100%;
   margin: 0;
   padding: 0;
@@ -38,7 +54,7 @@ body {
 
 p, ul {
   font-weight: 300;
-  color: #4A4A4A;
+  color: var(--white-color);
 }
 
 a, a:hover {
@@ -109,7 +125,7 @@ hr {
   font-family: Space Mono, SFMono-Regular, Menlo,Monaco, Consolas, Liberation Mono, Courier New, monospace;
   background: var(--bg-color);
   border: 1px solid var(--code-bg-color);
-  color: var(--primary-color-light);
+  color: var(--primary-color-light1);
 }
 
 .code--block {
@@ -126,7 +142,7 @@ hr {
 .button--primary {
   padding: 10px 22px;
   background-color: var(--accent-color);
-  color: white;
+  color: var(--white-color);
   position: relative;
   text-decoration: none;
   border: 0;
@@ -146,7 +162,7 @@ hr {
 
 .button--primary:hover {
   text-shadow: 0px 1px 1px var(--accent-color-dark);
-  color: white;
+  color: var(--white-color);
   transform: translate3D(0, -3px, 0);
 }
 
@@ -184,24 +200,50 @@ hr {
 }
 
 /* menu */
-.logo {
-  background: url('logo.svg') no-repeat;
-  background-size: contain;
-  margin: 1rem 0 0 1rem;
+.nav-logo {
+  height: -moz-fit-content;
+  height: fit-content;
+  padding: 1em;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.nav-logo object {
+  height: auto;
+  width: 50%;
+}
+
+.nav-spacer {
+  flex-grow: 1 !important;
+}
+
+.nav-title {
+  flex-grow: 1;
+}
+
+.nav-title h1 {
+  font-size: 3em;
+  margin: 0.5em;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 nav {
-  background-color: var(--bg-color);
-  display: grid;
+  background-color: var(--nav-bg-color);
+  color: var(--white-color);
+  display: flex;
+  flex: 1 1 100%;
   grid-template-columns: 70px auto;
-  margin: 0 auto;
-  padding: 2em;
-  width: 70%;
+  max-height: 155px;
+  padding: 1em;
+  width: 100%;
 }
 
 /** MENU */
 
-.menu {
+.nav-menu {
+  flex: 0 0 50%;
+  max-width: 50%;
   margin: 0;
   text-align: right;
   overflow: hidden;
@@ -209,7 +251,7 @@ nav {
   padding: 0 0 0 0;
 }
 
-.menu ul {
+.nav-menu ul {
   float: right;
   list-style: none;
   line-height: normal;
@@ -223,25 +265,25 @@ nav {
   color: var(--menu-ul-color);
 }
 
-.menu li {
+.nav-menu li {
   display: inline-block;
   margin-left: 0.5em;
   padding: 0.5em 0.75em;
 }
 
-.menu a {
+.nav-menu a {
   text-decoration: none;
   color: var(--menu-a-color);
 }
 
-.menu .active
+.nav-menu .active
 {
   background: var(--accent-color);
   border-radius: 5px;
   color: var(--menu-active-color);
 }
 
-.menu a:hover {
+.nav-menu a:hover {
   text-decoration: underline;
 }
 
@@ -283,8 +325,8 @@ table td, table th {
 
 table th {
   text-align: left;
-  background-color: white;
-  border-color: white;
+  background-color: var(--white-color);
+  border-color: var(--white-color);
   border-bottom-color: var(--code-bg-color);
 }
 
@@ -332,14 +374,14 @@ table td:first-child {
 
 #footer {
   background-color: var(--footer-bg-color);
-  border-radius: 0px 0px 10px 10px;
-  color: white;
+  color:var(--white-color);
   flex: 1 0 auto;
   flex-shrink: 0;
   margin: 0 auto 0 auto;
+  max-height: 400px;
   overflow: hidden;
   padding: 2em;
-  width: 70%
+  width: 100%
 }
 
 #footer h2 {
@@ -396,13 +438,34 @@ table td:first-child {
   width: 30%;
 }
 
-#copyright p {
+.copyright p {
   color: var(--copyright-color);
   text-align: center;
 }
 
-#copyright a {
+.copyright a {
   color: var(--copyright-color);
+}
+
+#copyright-div {
+  background-color: var(--copyright-bg-color);
+  color: var(--medium-gray-color);
+  flex: 1 0 auto;
+  flex-shrink: 0;
+  font-size: small;
+  margin: 0 auto 0 auto;
+  overflow: hidden;
+  padding: 2em;
+  width: 100%
+}
+
+#copyright-div p {
+  color: var(--medium-gray-color);
+  text-align: center;
+}
+
+#copyright-div a {
+  color: var(--medium-gray-color);
 }
 
 @keyframes fadeUp {
