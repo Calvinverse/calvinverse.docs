@@ -24,22 +24,23 @@
   --copyright-color: #ededed;
   --footer-color: #b0b0b0;
 
-  --menu-a-color:#291D1E;
-  --menu-active-color:#FFFFFF;
-  --menu-ul-color:#291D1E;
+  --menu-a-color:var(--white-color);
+  --menu-active-color:var(--white-color);
+  --menu-ul-color:var(--white-color);
 
   --bg-color: #23231f;
   --code-bg-color: #F0E8E8;
   --copyright-bg-color: var(--primary-color-dark4);
   --footer-bg-color: var(--primary-color-dark2);
-  --hero-bg-color: #e3e3e3;
+  --hero-bg-color: var(--bg-color);
   --nav-bg-color: var(--primary-color);
-  --wrapper-bg-color: white;
+  --wrapper-bg-color:var(--bg-color);
 }
 
 /* normalized */
 html, body {
   background-color: var(--bg-color);
+  color: var(--white-color);
   font-family: 'Roboto', 'Nunito Sans', sans-serif;
   height: 100%;
   margin: 0;
@@ -53,7 +54,7 @@ body {
 
 p, ul {
   font-weight: 300;
-  color: #4A4A4A;
+  color: var(--white-color);
 }
 
 a, a:hover {
@@ -141,7 +142,7 @@ hr {
 .button--primary {
   padding: 10px 22px;
   background-color: var(--accent-color);
-  color: white;
+  color: var(--white-color);
   position: relative;
   text-decoration: none;
   border: 0;
@@ -161,7 +162,7 @@ hr {
 
 .button--primary:hover {
   text-shadow: 0px 1px 1px var(--accent-color-dark);
-  color: white;
+  color: var(--white-color);
   transform: translate3D(0, -3px, 0);
 }
 
@@ -323,8 +324,8 @@ table td, table th {
 
 table th {
   text-align: left;
-  background-color: white;
-  border-color: white;
+  background-color: var(--white-color);
+  border-color: var(--white-color);
   border-bottom-color: var(--code-bg-color);
 }
 
@@ -372,7 +373,7 @@ table td:first-child {
 
 #footer {
   background-color: var(--footer-bg-color);
-  color: white;
+  color:var(--white-color);
   flex: 1 0 auto;
   flex-shrink: 0;
   margin: 0 auto 0 auto;
