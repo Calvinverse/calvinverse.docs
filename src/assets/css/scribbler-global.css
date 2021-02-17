@@ -450,6 +450,7 @@ table td:first-child {
   color: var(--medium-gray-color);
   flex: 1 0 auto;
   flex-shrink: 0;
+  font-size: small;
   margin: 0 auto 0 auto;
   overflow: hidden;
   padding: 2em;
