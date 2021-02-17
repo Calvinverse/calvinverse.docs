@@ -1,12 +1,12 @@
 /* hero section */
 .hero {
   background-color: var(--hero-bg-color);
-  border-radius: 10px 10px 10px 10px;
+  border-radius: 0px 0px 10px 10px;
   flex: 1 0 auto;
-  margin: 0em auto 4em auto;
-  padding: 2rem 2rem 4rem 2rem;
+  margin: 0em auto 2em auto;
+  padding: 2rem 2rem 2rem 2rem;
   text-align: center;
-  width: 90%;
+  width: 100%;
 }
 
 .hero__title {
@@ -22,7 +22,7 @@
   width: 60%;
   margin: -11rem auto 3rem auto;
   text-align: left;
-  color: white;
+  color: var(--white-color);
   padding: 0 1rem;
   border-radius: 4px;
   background-color: #232323;
