@@ -32,7 +32,7 @@
   --code-bg-color: #F0E8E8;
   --copyright-bg-color: var(--primary-color-dark4);
   --footer-bg-color: var(--primary-color-dark2);
-  --hero-bg-color: var(--bg-color);
+  --hero-bg-color: var(--secondary-color);
   --nav-bg-color: var(--primary-color);
   --wrapper-bg-color:var(--bg-color);
 }
@@ -234,6 +234,7 @@ nav {
   display: flex;
   flex: 1 1 100%;
   grid-template-columns: 70px auto;
+  max-height: 155px;
   padding: 1em;
   width: 100%;
 }
@@ -377,6 +378,7 @@ table td:first-child {
   flex: 1 0 auto;
   flex-shrink: 0;
   margin: 0 auto 0 auto;
+  max-height: 400px;
   overflow: hidden;
   padding: 2em;
   width: 100%
