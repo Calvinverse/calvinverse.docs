@@ -106,13 +106,6 @@
             </div>
         </div>
 
-        @{
-            if (Model.Bool("IsLanding", false))
-            {
-                @Html.Partial("_LandingFooter")
-            }
-        }
-
         <footer>
             @Html.Partial("_Footer")
         </footer>
